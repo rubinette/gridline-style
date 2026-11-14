@@ -1,0 +1,9 @@
+{
+  "name": "gridline-style-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Optional browser check for finished pages (layout.mjs).",
+  "dependencies": {
+    "playwright-core": "1.48.2"
+  }
+}

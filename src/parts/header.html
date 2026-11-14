@@ -1,0 +1,23 @@
+<a class="skip-link" href="#main">[[ui:skip_to_content]]</a>
+<header class="site-header">
+  <div class="header-rails" aria-hidden="true"><i class="junction"></i></div>
+  <div class="frame header-inner">
+    <i class="junction" aria-hidden="true"></i>
+    <a class="brand" href="{{HOME_URL}}">
+      <span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span>
+      <span class="brand-name">{{PRODUCT_NAME}}</span>
+    </a>
+    <!-- Mark the current section's link with aria-current="page". -->
+    <nav class="nav-links" id="site-nav" aria-label="[[ui:main_nav]]">
+      <a href="{{NAV_1_URL}}">{{NAV_1_LABEL}}</a>
+      <a href="{{NAV_2_URL}}">{{NAV_2_LABEL}}</a>
+      <a href="{{NAV_3_URL}}">{{NAV_3_LABEL}}</a>
+      <a href="{{NAV_4_URL}}">{{NAV_4_LABEL}}</a>
+    </nav>
+    <div class="header-actions">
+      <!--@part:theme-toggle-->
+      <a class="button primary header-button" href="{{HEADER_CTA_URL}}">{{HEADER_CTA_LABEL}}</a>
+      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>[[ui:menu]]</button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,270 @@
+<!-- gridline css="tokens base construction components landing" -->
+<!doctype html>
+<html lang="[[lang]]" class="no-js">
+<head>
+<!--@part:head-->
+<title>{{PRODUCT_NAME}} · {{TAGLINE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<!--@part:header-->
+<main id="main">
+
+  <!-- OPTIONAL announcement: delete when there is no news. -->
+  <div class="announce">
+    <div class="frame"><strong>{{ANNOUNCE_LABEL}}</strong> {{ANNOUNCE_TEXT}} <a href="{{ANNOUNCE_URL}}">{{ANNOUNCE_LINK}} →</a></div>
+  </div>
+
+  <section class="hero grid-bg" aria-labelledby="hero-title">
+    <div class="frame hero-inner center product-hero">
+      <p class="eyebrow">{{CATEGORY}}</p>
+      <h1 id="hero-title">{{HERO_TITLE}}</h1>
+      <p class="lead">{{HERO_BODY}}</p>
+      <div class="actions">
+        <a class="button primary" href="{{PRIMARY_URL}}">{{PRIMARY_CTA}} <kbd>{{PRIMARY_KEY}}</kbd></a>
+        <a class="button" href="{{SECONDARY_URL}}">{{SECONDARY_CTA}} <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <p class="hero-note">{{HERO_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="divider plain" aria-hidden="true"><div class="frame"><i class="junction"></i></div></div>
+  <section class="frame cells value-strip" aria-label="{{VALUE_LABEL}}">
+    <div class="value"><h3>{{VALUE_1_TITLE}}</h3><p>{{VALUE_1_BODY}}</p></div>
+    <div class="value"><h3>{{VALUE_2_TITLE}}</h3><p>{{VALUE_2_BODY}}</p></div>
+    <div class="value"><h3>{{VALUE_3_TITLE}}</h3><p>{{VALUE_3_BODY}}</p></div>
+  </section>
+  <div class="divider plain" aria-hidden="true"><div class="frame"><i class="junction"></i></div></div>
+
+  <!-- Product panel: a schematic window. Replace with a real screenshot inside
+       .window when one exists; never imitate another product's interface. -->
+  <section class="frame panel-stage" id="product" aria-label="{{PANEL_LABEL}}">
+    <div class="window" role="img" aria-label="{{PANEL_ALT}}">
+      <div class="window-bar" aria-hidden="true"><i></i><i></i><i></i><span>{{WINDOW_TITLE}}</span></div>
+      <div class="window-body" aria-hidden="true">
+        <div class="window-side">
+          <div class="window-item current">{{SIDE_1_LABEL}} <span class="state active">{{SIDE_1_STATE}}</span></div>
+          <div class="window-item">{{SIDE_2_LABEL}} <span class="state ok">{{SIDE_2_STATE}}</span></div>
+          <div class="window-item">{{SIDE_3_LABEL}} <span class="state warn">{{SIDE_3_STATE}}</span></div>
+          <div class="window-item">{{SIDE_4_LABEL}}</div>
+          <div class="window-item">{{SIDE_5_LABEL}}</div>
+        </div>
+        <div class="window-main">
+          <p class="window-task">{{DEMO_TASK}}</p>
+          <ul class="window-steps">
+            <li class="done">{{DEMO_STEP_1}}</li>
+            <li class="done">{{DEMO_STEP_2}}</li>
+            <li>{{DEMO_STEP_3}}</li>
+          </ul>
+          <div class="window-lines"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <div class="window-status" aria-hidden="true"><span>{{STATUS_LEFT}}</span><span>{{STATUS_RIGHT}}</span></div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="frame" id="features" aria-labelledby="features-title">
+    <div class="section-head">
+      <div>
+        <h2 id="features-title">{{FEATURES_TITLE}}</h2>
+        <p>{{FEATURES_BODY}}</p>
+      </div>
+      <div class="actions">
+        <a class="button ghost" href="{{FEATURES_LINK_1_URL}}">{{FEATURES_LINK_1}} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="button" href="{{FEATURES_LINK_2_URL}}">{{FEATURES_LINK_2}} <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="feature-rows">
+      <div class="cells two">
+        <article class="feature">
+          <div class="feature-media">
+            <svg class="sketch" viewBox="0 0 320 180" aria-hidden="true">
+              <path class="ln" d="M24 90H96M96 90C128 90 128 48 160 48H232M96 90C128 90 128 132 160 132H232"/>
+              <rect class="hi" x="232" y="34" width="64" height="28"/><rect class="box" x="232" y="118" width="64" height="28"/>
+              <rect class="node" x="91" y="85" width="10" height="10" transform="rotate(45 96 90)"/>
+              <rect class="box" x="24" y="76" width="44" height="28"/>
+            </svg>
+          </div>
+          <h3>{{FEATURE_1_TITLE}}</h3>
+          <p>{{FEATURE_1_BODY}}</p>
+        </article>
+        <article class="feature">
+          <div class="feature-media">
+            <svg class="sketch" viewBox="0 0 320 180" aria-hidden="true">
+              <path class="grid" d="M40 40H280M40 75H280M40 110H280M40 145H280"/>
+              <rect class="box" x="40" y="30" width="150" height="20"/><rect class="hi" x="40" y="65" width="210" height="20"/>
+              <rect class="box" x="40" y="100" width="120" height="20"/><rect class="box" x="40" y="135" width="180" height="20"/>
+              <circle class="dot" cx="266" cy="75" r="4"/>
+            </svg>
+          </div>
+          <h3>{{FEATURE_2_TITLE}}</h3>
+          <p>{{FEATURE_2_BODY}}</p>
+        </article>
+      </div>
+      <div class="cells">
+        <article class="feature"><h3>{{FEATURE_3_TITLE}}</h3><p>{{FEATURE_3_BODY}}</p></article>
+        <article class="feature"><h3>{{FEATURE_4_TITLE}}</h3><p>{{FEATURE_4_BODY}}</p></article>
+        <article class="feature"><h3>{{FEATURE_5_TITLE}}</h3><p>{{FEATURE_5_BODY}}</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTIONAL stats: real, sourced numbers only. Delete the band otherwise. -->
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="grid-bg" aria-labelledby="stats-title">
+    <div class="frame stats-inner">
+      <h2 id="stats-title">{{STATS_TITLE}}</h2>
+      <p>{{STATS_BODY}}</p>
+      <div class="cells four stats-cells">
+        <div class="stat"><span class="stat-value">{{STAT_1_VALUE}}</span><span class="stat-label">{{STAT_1_LABEL}}</span></div>
+        <div class="stat"><span class="stat-value">{{STAT_2_VALUE}}</span><span class="stat-label">{{STAT_2_LABEL}}</span></div>
+        <div class="stat"><span class="stat-value">{{STAT_3_VALUE}}</span><span class="stat-label">{{STAT_3_LABEL}}</span></div>
+        <div class="stat"><span class="stat-value">{{STAT_4_VALUE}}</span><span class="stat-label">{{STAT_4_LABEL}}</span></div>
+      </div>
+      <p class="stats-source">{{STATS_SOURCE}}</p>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="frame" id="workflow" aria-labelledby="workflow-title">
+    <div class="section-head">
+      <div>
+        <h2 id="workflow-title">{{WORKFLOW_TITLE}}</h2>
+        <p>{{WORKFLOW_BODY}}</p>
+      </div>
+    </div>
+    <div class="showcase">
+      <div class="showcase-list">
+        <details class="showcase-item" name="workflow" open>
+          <summary>{{STEP_1_TITLE}}</summary>
+          <div><p>{{STEP_1_BODY}}</p><a href="{{STEP_1_URL}}">{{STEP_1_LINK}} →</a></div>
+        </details>
+        <details class="showcase-item" name="workflow">
+          <summary>{{STEP_2_TITLE}}</summary>
+          <div><p>{{STEP_2_BODY}}</p><a href="{{STEP_2_URL}}">{{STEP_2_LINK}} →</a></div>
+        </details>
+        <details class="showcase-item" name="workflow">
+          <summary>{{STEP_3_TITLE}}</summary>
+          <div><p>{{STEP_3_BODY}}</p><a href="{{STEP_3_URL}}">{{STEP_3_LINK}} →</a></div>
+        </details>
+      </div>
+      <div class="showcase-figure">
+        <div class="window" role="img" aria-label="{{SHOWCASE_ALT}}">
+          <div class="window-bar" aria-hidden="true"><i></i><i></i><i></i><span>{{SHOWCASE_TITLE}}</span></div>
+          <div class="window-main" aria-hidden="true">
+            <p class="window-task">{{SHOWCASE_TASK}}</p>
+            <ul class="window-steps">
+              <li class="done">{{SHOWCASE_STEP_1}}</li>
+              <li class="done">{{SHOWCASE_STEP_2}}</li>
+              <li>{{SHOWCASE_STEP_3}}</li>
+            </ul>
+            <div class="window-lines"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTIONAL plans: delete the section (and the plans nav link) without pricing. -->
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="frame" id="plans" aria-labelledby="plans-title">
+    <div class="section-head">
+      <div>
+        <h2 id="plans-title">{{PLANS_TITLE}}</h2>
+        <p>{{PLANS_BODY}}</p>
+      </div>
+    </div>
+    <div class="plans-stage">
+      <div class="plans">
+        <article class="plan">
+          <p class="plan-name">{{PLAN_1_NAME}}</p>
+          <p class="price"><strong>{{PLAN_1_PRICE}}</strong><span>{{PLAN_1_UNIT}}</span></p>
+          <p class="plan-desc">{{PLAN_1_DESC}}</p>
+          <ul class="checks"><li>{{PLAN_1_CHECK_1}}</li><li>{{PLAN_1_CHECK_2}}</li><li>{{PLAN_1_CHECK_3}}</li></ul>
+          <a class="button" href="{{PLAN_1_URL}}">{{PLAN_1_CTA}}</a>
+        </article>
+        <article class="plan featured">
+          <p class="plan-name">{{PLAN_2_NAME}}</p>
+          <p class="price"><strong>{{PLAN_2_PRICE}}</strong><span>{{PLAN_2_UNIT}}</span></p>
+          <p class="plan-desc">{{PLAN_2_DESC}}</p>
+          <ul class="checks"><li>{{PLAN_2_CHECK_1}}</li><li>{{PLAN_2_CHECK_2}}</li><li>{{PLAN_2_CHECK_3}}</li></ul>
+          <a class="button primary" href="{{PLAN_2_URL}}">{{PLAN_2_CTA}}</a>
+        </article>
+        <article class="plan">
+          <p class="plan-name">{{PLAN_3_NAME}}</p>
+          <p class="price"><strong>{{PLAN_3_PRICE}}</strong><span>{{PLAN_3_UNIT}}</span></p>
+          <p class="plan-desc">{{PLAN_3_DESC}}</p>
+          <ul class="checks"><li>{{PLAN_3_CHECK_1}}</li><li>{{PLAN_3_CHECK_2}}</li><li>{{PLAN_3_CHECK_3}}</li></ul>
+          <p class="plan-note">{{PLAN_3_NOTE}}</p>
+          <a class="button" href="{{PLAN_3_URL}}">{{PLAN_3_CTA}}</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider plain" aria-hidden="true"><div class="frame"><i class="junction"></i></div></div>
+  <section class="frame" id="faq" aria-labelledby="faq-title">
+    <div class="section-head"><div><h2 id="faq-title">{{FAQ_TITLE}}</h2></div></div>
+    <div class="faq-stage">
+      <div class="faq">
+        <details><summary>{{QUESTION_1}}</summary><div><p>{{ANSWER_1}}</p></div></details>
+        <details><summary>{{QUESTION_2}}</summary><div><p>{{ANSWER_2}}</p></div></details>
+        <details><summary>{{QUESTION_3}}</summary><div><p>{{ANSWER_3}}</p></div></details>
+        <details><summary>{{QUESTION_4}}</summary><div><p>{{ANSWER_4}}</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTIONAL latest posts: link real posts, or delete the section. -->
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="frame" aria-labelledby="latest-title">
+    <div class="section-head">
+      <div>
+        <h2 id="latest-title">{{LATEST_TITLE}}</h2>
+        <p>{{LATEST_BODY}}</p>
+      </div>
+      <div class="actions"><a class="button" href="{{LATEST_URL}}">{{LATEST_LINK}} <span class="arrow" aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <a class="card-link" href="{{POST_1_URL}}">
+          <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+          <div class="card-body">
+            <h3 class="card-title">{{POST_1_TITLE}}</h3>
+            <p class="card-excerpt">{{POST_1_EXCERPT}}</p>
+            <div class="card-meta"><span class="card-authors">{{POST_1_AUTHOR}}</span><time datetime="{{POST_1_DATETIME}}">{{POST_1_DATE}}</time><span class="badge accent">[[ui:latest]]</span></div>
+          </div>
+        </a>
+      </article>
+      <article class="card">
+        <a class="card-link" href="{{POST_2_URL}}">
+          <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+          <div class="card-body">
+            <h3 class="card-title">{{POST_2_TITLE}}</h3>
+            <p class="card-excerpt">{{POST_2_EXCERPT}}</p>
+            <div class="card-meta"><span class="card-authors">{{POST_2_AUTHOR}}</span><time datetime="{{POST_2_DATETIME}}">{{POST_2_DATE}}</time></div>
+          </div>
+        </a>
+      </article>
+      <article class="card">
+        <a class="card-link" href="{{POST_3_URL}}">
+          <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+          <div class="card-body">
+            <h3 class="card-title">{{POST_3_TITLE}}</h3>
+            <p class="card-excerpt">{{POST_3_EXCERPT}}</p>
+            <div class="card-meta"><span class="card-authors">{{POST_3_AUTHOR}}</span><time datetime="{{POST_3_DATETIME}}">{{POST_3_DATE}}</time></div>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+<!--@part:cta-->
+</main>
+<!--@part:footer-->
+</body>
+</html>
