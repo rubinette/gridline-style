@@ -1,0 +1,88 @@
+<!-- gridline css="print" -->
+<!doctype html>
+<html lang="[[lang]]">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="gridline-style">
+<meta name="description" content="{{DESCRIPTION}}">
+<title>{{DOC_TITLE}}</title>
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<!-- A4 pages for scripts/render.py (WeasyPrint). Add or remove <section
+     class="page"> blocks to fit the content, and keep each folio ("2 / 3")
+     in step with the page count. -->
+<section class="page grid">
+  <div class="frame">
+    <span class="corner-points" aria-hidden="true"></span>
+    <div class="kicker">{{CATEGORY}} / {{EDITION}}</div>
+    <h1>{{DOC_TITLE}}</h1>
+    <p class="lead">{{DOC_SUBTITLE}}</p>
+    <div class="meta">
+      <div><span>[[ui:prepared_for]]</span><strong>{{AUDIENCE}}</strong></div>
+      <div><span>[[ui:published]]</span><strong>{{DATE}}</strong></div>
+      <div><span>[[ui:reading_time]]</span><strong>{{READING_TIME}}</strong></div>
+    </div>
+  </div>
+  <div class="running">{{PRODUCT_NAME}} / {{CATEGORY}}</div>
+  <div class="folio">1 / 3</div>
+</section>
+
+<section class="page">
+  <header class="section-head">
+    <div><div class="eyebrow">01 / {{SECTION_1_LABEL}}</div><h2>{{SECTION_1_TITLE}}</h2></div>
+    <span class="num">A</span>
+  </header>
+  <div class="columns">
+    <div>
+      <p class="lead">{{SUMMARY}}</p>
+      <div class="callout"><strong>{{CALLOUT_TITLE}}</strong>{{CALLOUT_BODY}}</div>
+      <h3>{{PRINCIPLE_1_TITLE}}</h3><p>{{PRINCIPLE_1_BODY}}</p>
+      <h3>{{PRINCIPLE_2_TITLE}}</h3><p>{{PRINCIPLE_2_BODY}}</p>
+    </div>
+    <div>
+      <div class="card"><div class="label">{{CARD_1_LABEL}}</div><h3>{{CARD_1_TITLE}}</h3><p>{{CARD_1_BODY}}</p></div>
+      <div class="card"><div class="label">{{CARD_2_LABEL}}</div><h3>{{CARD_2_TITLE}}</h3><p>{{CARD_2_BODY}}</p></div>
+      <div class="card"><div class="label">{{CARD_3_LABEL}}</div><h3>{{CARD_3_TITLE}}</h3><p>{{CARD_3_BODY}}</p></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>{{TABLE_HEAD_1}}</th><th>{{TABLE_HEAD_2}}</th><th>{{TABLE_HEAD_3}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{ROW_1_A}}</td><td>{{ROW_1_B}}</td><td>{{ROW_1_C}}</td></tr>
+      <tr><td>{{ROW_2_A}}</td><td>{{ROW_2_B}}</td><td>{{ROW_2_C}}</td></tr>
+      <tr><td>{{ROW_3_A}}</td><td>{{ROW_3_B}}</td><td>{{ROW_3_C}}</td></tr>
+    </tbody>
+  </table>
+  <div class="running">{{PRODUCT_NAME}} / {{SECTION_1_TITLE}}</div>
+  <div class="folio">2 / 3</div>
+</section>
+
+<section class="page">
+  <header class="section-head">
+    <div><div class="eyebrow">02 / {{SECTION_2_LABEL}}</div><h2>{{SECTION_2_TITLE}}</h2></div>
+    <span class="num">B</span>
+  </header>
+  <p class="lead">{{SECTION_2_LEAD}}</p>
+  <div class="steps">
+    <div class="step"><b>01</b><h3>{{STEP_1_TITLE}}</h3><p>{{STEP_1_BODY}}</p></div>
+    <div class="step"><b>02</b><h3>{{STEP_2_TITLE}}</h3><p>{{STEP_2_BODY}}</p></div>
+    <div class="step"><b>03</b><h3>{{STEP_3_TITLE}}</h3><p>{{STEP_3_BODY}}</p></div>
+  </div>
+  <pre><span class="c"># {{CODE_COMMENT}}</span>
+<span class="k">{{CODE_COMMAND}}</span>
+<span class="s">{{CODE_RESULT}}</span></pre>
+  <div class="pull">{{CLOSING_STATEMENT}}</div>
+  <div class="columns">
+    <div><h3>{{NEXT_TITLE}}</h3><p>{{NEXT_BODY}}</p></div>
+    <div><h3>{{BOUNDARY_TITLE}}</h3><p>{{BOUNDARY_BODY}}</p></div>
+  </div>
+  <p class="fine">{{FOOTNOTE}}</p>
+  <div class="running">{{PRODUCT_NAME}} / {{SECTION_2_TITLE}}</div>
+  <div class="folio">3 / 3</div>
+</section>
+</body>
+</html>

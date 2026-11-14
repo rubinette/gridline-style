@@ -34,6 +34,9 @@
     "zoom_out": "Zoom out",
     "zoom_reset": "Reset zoom",
     "expand_diagram": "Expand to window",
-    "close": "Close"
+    "close": "Close",
+    "prepared_for": "Prepared for",
+    "published": "Published",
+    "reading_time": "Reading time"
   }
 }

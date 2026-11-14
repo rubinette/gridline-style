@@ -34,6 +34,9 @@
     "zoom_out": "縮小",
     "zoom_reset": "重設縮放",
     "expand_diagram": "放大到視窗",
-    "close": "關閉"
+    "close": "關閉",
+    "prepared_for": "閱讀對象",
+    "published": "發布日期",
+    "reading_time": "閱讀時間"
   }
 }
