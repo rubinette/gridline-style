@@ -1,67 +1,69 @@
 # gridline-style
 
-Gridline 的設計系統：灰白底色、以細線構成的導軌（rails）與菱形節點、單一電光藍強調色、襯線標題字與等寬字中繼資料，支援淺色與深色模式。這裡把 [hugo-gridline](https://github.com/rubinette/hugo-gridline) 佈景主題的視覺語言整理成可重複使用的規範、樣式與模板，並以 Claude 技能（skill）的形式提供，之後將取代 zed-style。
+**English** · [繁體中文](README.zh-TW.md)
 
-版面語彙參考了 zed.dev 的整體結構（導軌、菱形節點、襯線標題、等寬標籤），但設計與程式碼皆為原創，不含任何 Zed 的商標、截圖或文案，也與 Zed Industries 無關。範例使用虛構產品 Orbitline。
+The Gridline design system: a gray-white canvas, hairline construction rails with diamond nodes, a single electric-blue accent, serif display type and mono metadata, in light and dark. It turns the visual language of the [hugo-gridline](https://github.com/rubinette/hugo-gridline) theme into reusable rules, styles and templates, packaged as a Claude skill, and replaces zed-style.
 
-## 內容
+The layout vocabulary draws on the overall structure of zed.dev (rails, diamond nodes, serif headings, mono labels), but the design and code are original. It contains no Zed trademarks, screenshots or copy and is not affiliated with Zed Industries. The examples use a fictional product, Orbitline.
 
-| 模板 | 用途 |
+## Contents
+
+| Template | Purpose |
 | --- | --- |
-| `landing` | 產品首頁：主視覺、價值條、產品示意視窗、功能列、數據帶、流程展示、方案、常見問題、最新文章、行動呼籲 |
-| `docs` | 文件頁：左側目錄、文章、本頁內容 |
-| `changelog` | 更新紀錄：版本導軌、版本卡片、釘選欄 |
-| `blog-index` | 部落格首頁：精選卡片、分類欄、依年份分組的文章列 |
-| `post` | 文章頁：外側導軌標題帶、文章、目錄側欄、Mermaid 圖表 |
-| `document` | A4 技術簡報，以 WeasyPrint 輸出 PDF |
+| `landing` | Product home page: hero, value strip, product window, feature rows, stats band, workflow showcase, plans, FAQ, latest posts, call to action |
+| `docs` | Documentation page: navigation rail, article, on-this-page |
+| `changelog` | Changelog: version rail, release cards, pin board |
+| `blog-index` | Blog home: featured cards, category rail, post rows grouped by year |
+| `post` | Blog post: band header with outer rails, article, TOC aside, Mermaid diagrams |
+| `document` | A4 technical brief, rendered to PDF with WeasyPrint |
 
-每個模板都有英文與繁體中文版本（`assets/templates/<名稱>-en.html`、`-zh-tw.html`），皆為自足的單一 HTML 檔，另附填好內容的範例（`assets/examples/`）。應用程式介面沒有模板，改以 `references/app-ui.md` 說明。
+Every template comes in English and Traditional Chinese (`assets/templates/<name>-en.html`, `-zh-tw.html`). Each is a single self-contained HTML file, with a filled-in example in `assets/examples/`. Application UI has no template; `references/app-ui.md` covers it instead.
 
-## 當作技能使用
+## Use as a skill
 
 ```bash
 ln -s ~/src/gridline-style ~/.claude/skills/gridline-style
 ```
 
-代理會從 `SKILL.md` 開始：先鎖定頁面類型、語言與輸出格式，複製對應模板填入內容，再用下列工具驗證。
+An agent starts from `SKILL.md`: it settles the surface, languages and outputs, copies the matching template and fills it, then verifies the result with these tools:
 
 ```bash
-python3 scripts/check.py page.html                     # 佔位符、[DATA NEEDED]、連結、錨點、樣式警告
-npm install --prefix scripts                            # 第一次使用 layout.mjs 前
-node scripts/layout.mjs page.html --shots shots/       # 各寬度 × 淺色／深色：水平捲動、控制項高度、主控台錯誤
+python3 scripts/check.py page.html                     # placeholders, [DATA NEEDED], links, anchors, style warnings
+npm install --prefix scripts                            # once, before the first layout.mjs run
+node scripts/layout.mjs page.html --shots shots/       # each width × light / dark: horizontal scroll, control heights, console errors
 uv run --no-project --with weasyprint --with pymupdf python scripts/render.py brief.html brief.pdf --png pages/
 ```
 
-## 目錄結構
+## Layout
 
 ```
-SKILL.md            代理的入口：流程與路由
-CHEATSHEET.md       一頁速查：不變規則、token、類別、指令
-references/         design.md（完整規範）、components.md（元件標記）、tokens.json、
-                    content.md（內容規則）、mermaid.md、app-ui.md、anti-patterns.md
-src/                原始碼（修改這裡）
-  css/              tokens、base、construction、components、prose、blog、docs、
-                    changelog、landing、diagram、syntax、print
-  js/               boot.js（主題還原）、site.js（主題切換、選單、複製、目錄）、diagram.js（Pele、放大檢視）
-  i18n/             介面字串（en、zh-tw）
-  parts/            共用片段（頁首、頁尾、行動呼籲、圖表腳本）
-  templates/        各頁面的模板原始檔
-  content/          範例內容（_shared 為共用的品牌、導覽與頁尾）
-assets/             由 scripts/build.py 產生（請勿手動修改）
+SKILL.md            the agent's entry point: workflow and routing
+CHEATSHEET.md       one-page reference: invariants, tokens, classes, commands
+references/         design.md (full spec), components.md (component markup), tokens.json,
+                    content.md (content rules), mermaid.md, app-ui.md, anti-patterns.md
+src/                sources (edit these)
+  css/              tokens, base, construction, components, prose, blog, docs,
+                    changelog, landing, diagram, syntax, print
+  js/               boot.js (theme restore), site.js (theme toggle, menus, copy, TOC), diagram.js (Pele, expanded view)
+  i18n/             interface strings (en, zh-tw)
+  parts/            shared fragments (header, footer, call to action, diagram script)
+  templates/        template sources for each page
+  content/          example content (_shared holds the brand, navigation and footer)
+assets/             generated by scripts/build.py (do not edit by hand)
   templates/ examples/ css/gridline.css css/print.css js/
-scripts/            build.py、check.py、layout.mjs、render.py、tests/
+scripts/            build.py, check.py, layout.mjs, render.py, tests/
 ```
 
-## 開發流程
+## Development
 
-1. 修改 `src/` 底下的檔案。
-2. 執行 `python3 scripts/build.py` 重新產生 `assets/`。
-3. 執行 `python3 -m unittest discover -s scripts/tests`（其中一項測試會確認 `assets/` 與原始碼一致）與 `node scripts/layout.mjs assets/examples/*.html`。
-4. 規則或數值有變動時，同步更新 `references/design.md`、`references/tokens.json`。
-5. hugo-gridline 直接使用這裡的 CSS 與 JS 模組：在主題執行 `python3 scripts/sync-gridline-style.py` 同步，並檢查它的範例網站。
+1. Edit the files under `src/`.
+2. Run `python3 scripts/build.py` to regenerate `assets/`.
+3. Run `python3 -m unittest discover -s scripts/tests` (one test confirms `assets/` matches the sources) and `node scripts/layout.mjs assets/examples/*.html`.
+4. When a rule or value changes, update `references/design.md` and `references/tokens.json` to match.
+5. hugo-gridline uses the CSS and JS modules from here directly: run `python3 scripts/sync-gridline-style.py` in the theme to sync them, then check its example site.
 
-模板原始檔開頭的 `<!-- gridline css="…" -->` 指定要內嵌的 CSS 模組；`<!--@part:名稱-->` 引入共用片段，`[[ui:鍵]]` 會換成介面字串，`{{佔位符}}` 則保留給使用者填寫。範例內容的值若寫成 `"@檔名.html"`，會從 `src/content/` 讀入長篇 HTML。
+A template source starts with `<!-- gridline css="…" -->`, naming the CSS modules to inline. `<!--@part:name-->` includes a shared fragment, `[[ui:key]]` becomes an interface string, and `{{PLACEHOLDER}}` is left for the user to fill. In example content, a value written as `"@file.html"` reads long-form HTML from `src/content/`.
 
-## 授權
+## License
 
-MIT。頁面中的 Mermaid 圖表由 [Pele](https://github.com/obsidianmd/pele)（MIT，© kepano）在瀏覽器中渲染，預設從 jsDelivr 載入；自行部署時請保留其授權檔。字型只列出字型名稱（IBM Plex、Lilex 等開源字型優先），不嵌入或連結字型檔。
+MIT. Mermaid diagrams on the pages are rendered in the browser by [Pele](https://github.com/obsidianmd/pele) (MIT, © kepano), loaded from jsDelivr by default; keep its licence file if you host it yourself. Fonts are named only (open-source faces such as IBM Plex and Lilex first); no font files are embedded or linked.
