@@ -89,7 +89,9 @@
 
 @media (max-width: 1180px) {
   .release-layout { grid-template-columns: 200px minmax(0, 1fr); }
-  .pinboard { display: none; }
+  /* The pin board moves under the feed rather than disappearing. */
+  .pinboard { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); padding: 28px var(--pad) 40px; }
+  .pinboard .aside-sticky { position: static; max-height: none; }
 }
 @media (max-width: 880px) {
   .release-layout { grid-template-columns: minmax(0, 1fr); }
@@ -97,8 +99,12 @@
   .release-rail .aside-sticky { position: static; max-height: none; }
   .release-rail ul { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .release-rail a { border: 1px solid var(--line); padding: 4px 10px; }
+  .pinboard { grid-column: 1; }
 }
 @media (max-width: 600px) {
   .release-feed { padding: 24px var(--pad) 56px; }
   .release-body { padding: 16px 16px 2px; }
 }
+
+.pin-note { margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+.pinboard section { padding-top: 18px; border-top: 1px solid var(--line); }

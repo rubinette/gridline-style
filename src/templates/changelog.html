@@ -1,0 +1,96 @@
+<!-- gridline css="tokens base construction components prose changelog syntax" -->
+<!doctype html>
+<html lang="[[lang]]" class="no-js">
+<head>
+<!--@part:head-->
+<title>{{PAGE_TITLE}} · {{PRODUCT_NAME}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<!--@part:header-->
+<main id="main">
+  <header class="band">
+    <div class="band-rails" aria-hidden="true"><i class="junction"></i></div>
+    <div class="frame band-inner center">
+      <i class="junction" aria-hidden="true"></i>
+      <p class="eyebrow">{{EYEBROW}}</p>
+      <h1 class="band-title">{{PAGE_TITLE}}</h1>
+      <p class="lead">{{LEAD}}</p>
+    </div>
+  </header>
+
+  <div class="frame release-layout">
+    <nav class="release-rail" aria-label="[[ui:versions]]">
+      <div class="aside-sticky">
+        <p class="nav-label">[[ui:channel]]</p>
+        <ul>
+          <li><a href="{{CHANNEL_1_URL}}" aria-current="page"><span>{{CHANNEL_1}}</span></a></li>
+          <li><a href="{{CHANNEL_2_URL}}"><span>{{CHANNEL_2}}</span></a></li>
+        </ul>
+        <p class="nav-label">[[ui:versions]]</p>
+        <ul>
+          <li><a href="#{{RELEASE_1_ID}}">{{RELEASE_1_VERSION}}</a></li>
+          <li><a href="#{{RELEASE_2_ID}}">{{RELEASE_2_VERSION}}</a></li>
+          <li><a href="#{{RELEASE_3_ID}}">{{RELEASE_3_VERSION}}</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Newest first. A .month label opens each month; copy an <article
+         class="release"> per version. Notes use prose markup: h3 per group
+         (Features, Fixes, Breaking changes), lists, code, links. -->
+    <div class="release-feed">
+      <h2 class="month">{{MONTH_1}}</h2>
+      <article class="release" id="{{RELEASE_1_ID}}">
+        <header class="release-head">
+          <a class="version" href="#{{RELEASE_1_ID}}">{{RELEASE_1_VERSION}} <span class="badge accent">[[ui:latest]]</span></a>
+          <time datetime="{{RELEASE_1_DATETIME}}">{{RELEASE_1_DATE}}</time>
+        </header>
+        <div class="release-body prose">
+          {{RELEASE_1_NOTES_HTML}}
+        </div>
+      </article>
+
+      <h2 class="month">{{MONTH_2}}</h2>
+      <article class="release" id="{{RELEASE_2_ID}}">
+        <header class="release-head">
+          <a class="version" href="#{{RELEASE_2_ID}}">{{RELEASE_2_VERSION}}</a>
+          <time datetime="{{RELEASE_2_DATETIME}}">{{RELEASE_2_DATE}}</time>
+        </header>
+        <div class="release-body prose">
+          {{RELEASE_2_NOTES_HTML}}
+        </div>
+      </article>
+      <article class="release" id="{{RELEASE_3_ID}}">
+        <header class="release-head">
+          <a class="version" href="#{{RELEASE_3_ID}}">{{RELEASE_3_VERSION}}</a>
+          <time datetime="{{RELEASE_3_DATETIME}}">{{RELEASE_3_DATE}}</time>
+        </header>
+        <div class="release-body prose">
+          {{RELEASE_3_NOTES_HTML}}
+        </div>
+      </article>
+    </div>
+
+    <aside class="pinboard" aria-label="[[ui:pinned]]">
+      <div class="aside-sticky">
+        <p class="nav-label">[[ui:pinned]]</p>
+        <ul>
+          <li><a href="{{PIN_1_URL}}">{{PIN_1}}</a></li>
+          <li><a href="{{PIN_2_URL}}">{{PIN_2}}</a></li>
+          <li><a href="{{PIN_3_URL}}">{{PIN_3}}</a></li>
+        </ul>
+        <section id="policy" aria-labelledby="policy-title">
+          <p class="nav-label" id="policy-title">{{POLICY_TITLE}}</p>
+          <p class="pin-note">{{POLICY_BODY}}</p>
+        </section>
+      </div>
+    </aside>
+  </div>
+</main>
+<!--@part:footer-->
+</body>
+</html>
