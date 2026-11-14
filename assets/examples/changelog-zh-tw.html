@@ -1366,6 +1366,7 @@ kbd.key {
 @media (max-width: 1180px) {
   .release-layout { grid-template-columns: 200px minmax(0, 1fr); }
   /* The pin board moves under the feed rather than disappearing. */
+  .release-rail { grid-row: 1 / span 2; }
   .pinboard { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); padding: 28px var(--pad) 40px; }
   .pinboard .aside-sticky { position: static; max-height: none; }
 }
@@ -1375,6 +1376,7 @@ kbd.key {
   .release-rail .aside-sticky { position: static; max-height: none; }
   .release-rail ul { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .release-rail a { border: 1px solid var(--line); padding: 4px 10px; }
+  .release-rail { grid-row: auto; }
   .pinboard { grid-column: 1; }
 }
 @media (max-width: 600px) {
