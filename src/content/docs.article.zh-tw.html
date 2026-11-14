@@ -1,0 +1,65 @@
+<p>共享工作階段讓多個人，以及他們邀請的代理，同時編輯同一組緩衝區。每個人都保有自己的游標、選取範圍與復原紀錄；修改以點對點傳送，不需要中央伺服器就能合併。</p>
+
+<div class="callout callout-note" role="note">
+  <p class="callout-title">附註</p>
+  <p>本頁是 gridline-style 的示範內容。Orbitline 與 <code>orbit</code> 指令都是虛構的。</p>
+</div>
+
+<h2 id="before-you-start">開始之前<a class="anchor" href="#before-you-start" aria-label="連結到此段落">#</a></h2>
+<p>每台機器都需要 Orbitline 0.9 以上的版本。工作階段綁定在資料夾上，所以請先開啟要分享的專案。狀態列會顯示工作階段的狀態：</p>
+<p><span class="state">離線</span> <span class="state active">進行中</span> <span class="state ok">已合併</span> <span class="state warn">待審查</span></p>
+
+<h2 id="start-a-session">啟動工作階段<a class="anchor" href="#start-a-session" aria-label="連結到此段落">#</a></h2>
+<ol class="steps">
+  <li><p>用 <kbd>⌘</kbd> <kbd>K</kbd> <strong>打開命令面板</strong>，執行 <code>session: start</code>，或使用下面的指令。</p></li>
+  <li><p><strong>為工作階段命名</strong>：用工作內容命名，而不是人名。名稱會出現在每位協作者的視窗裡。</p></li>
+  <li><p><strong>分享連結</strong>：編輯器會把連結複製到剪貼簿。拿到連結的人可以申請加入，由你逐一核准。</p></li>
+</ol>
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">shell</span>
+    <button class="copy" type="button" data-done="已複製" hidden>複製</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="gp">$ </span>orbit session start --name render-loop
+</span></span><span class="line"><span class="cl"><span class="go">session render-loop is live · link copied</span>
+</span></span></code></pre></div>
+</figure>
+
+<h2 id="invite">邀請成員與代理<a class="anchor" href="#invite" aria-label="連結到此段落">#</a></h2>
+<p>代理加入工作階段的方式和人完全一樣：它有自己的游標，修改會標示來源，也可以隨時被移出。角色決定每位參與者能做什麼。</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>角色</th><th>可編輯</th><th>可邀請</th><th>常見用途</th></tr></thead>
+  <tbody>
+    <tr><td>擁有者</td><td>是</td><td>是</td><td>啟動工作階段的人</td></tr>
+    <tr><td>編輯者</td><td>是</td><td>否</td><td>結對的隊友、代理</td></tr>
+    <tr><td>檢視者</td><td>否</td><td>否</td><td>審查者、展示</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="how-merging-works">合併如何運作<a class="anchor" href="#how-merging-works" aria-label="連結到此段落">#</a></h2>
+<p>每個緩衝區都是 CRDT。本機修改會立即套用，再送給其他參與者；對方依識別碼而不是位置整合，所有副本最後都得到相同的文字。</p>
+<figure class="figure diagram">
+  <div class="figure-frame">
+    <pre class="mermaid">flowchart LR
+    edit[本機修改] --> apply[立即套用]
+    apply --> send[送給其他參與者]
+    send --> merge{識別碼順序一致？}
+    merge -- 一定 --> done((收斂))</pre>
+  </div>
+  <figcaption>修改先在本機套用，其他參與者再依識別碼合併。</figcaption>
+</figure>
+<p>工程文章〈<a href="post-zh-tw.html">多人編輯的資料模型</a>〉說明了其中的取捨。</p>
+
+<h2 id="review">審查修改<a class="anchor" href="#review" aria-label="連結到此段落">#</a></h2>
+<p>每位參與者的修改都能追溯來源。打開<strong>工作階段 › 審查</strong>，就能以作者分組的 diff 檢視修改，再逐組保留或還原。</p>
+<div class="callout callout-warning" role="note">
+  <p class="callout-title">警告</p>
+  <p>還原一組修改時，依賴它的後續修改也會一起還原。確認之前，審查畫面會先標示這些修改。</p>
+</div>
+
+<h2 id="next-steps">下一步<a class="anchor" href="#next-steps" aria-label="連結到此段落">#</a></h2>
+<div class="ref-grid">
+  <a class="ref-card" href="#"><strong>在線狀態與游標</strong><span>跟隨某位協作者，或請對方跟隨你。</span></a>
+  <a class="ref-card" href="#"><strong>隱私</strong><span>工作階段會送出什麼、送給誰，以及哪些資料永遠不會離開你的電腦。</span></a>
+</div>

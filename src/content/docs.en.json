@@ -1,0 +1,20 @@
+{
+  "PAGE_TITLE": "Shared sessions",
+  "DESCRIPTION": "Start a shared session, invite people and agents, and review their changes in the (fictional) Orbitline editor.",
+  "SEARCH_URL": "#",
+  "SEARCH_PLACEHOLDER": "Search docs…",
+  "DOCS_NAV_HTML": "@docs.nav.en.html",
+  "CRUMB_1": "Docs",
+  "CRUMB_1_URL": "docs-en.html",
+  "CRUMB_2": "Collaboration",
+  "CRUMB_2_URL": "docs-en.html",
+  "LEAD": "Edit the same buffers with teammates and agents, merge without a server, and review who changed what.",
+  "EDIT_URL": "#",
+  "TOC_HTML": "@docs.toc.en.html",
+  "ARTICLE_HTML": "@docs.article.en.html",
+  "PREV_URL": "#",
+  "PREV_TITLE": "Command palette",
+  "NEXT_URL": "#",
+  "NEXT_TITLE": "Presence and cursors",
+  "UPDATED": "Last updated November 10, 2026"
+}

@@ -1,0 +1,65 @@
+<p>A shared session lets several people, and any agents they invite, edit the same buffers at once. Everyone keeps their own cursor, selection and undo history; edits travel peer to peer and merge without a central server.</p>
+
+<div class="callout callout-note" role="note">
+  <p class="callout-title">Note</p>
+  <p>This page is sample content for gridline-style. Orbitline and its <code>orbit</code> command are fictional.</p>
+</div>
+
+<h2 id="before-you-start">Before you start<a class="anchor" href="#before-you-start" aria-label="Link to this section">#</a></h2>
+<p>Sessions need Orbitline 0.9 or later on every machine. A session is tied to a folder, so open the project you want to share first. The status bar shows the session state:</p>
+<p><span class="state">offline</span> <span class="state active">live</span> <span class="state ok">merged</span> <span class="state warn">needs review</span></p>
+
+<h2 id="start-a-session">Start a session<a class="anchor" href="#start-a-session" aria-label="Link to this section">#</a></h2>
+<ol class="steps">
+  <li><p><strong>Open the command palette</strong> with <kbd>⌘</kbd> <kbd>K</kbd> and run <code>session: start</code>, or use the command line below.</p></li>
+  <li><p><strong>Name the session</strong> after the work, not the person. The name appears in every collaborator’s window.</p></li>
+  <li><p><strong>Share the link</strong> the editor copies to your clipboard. Anyone with the link can ask to join; you approve each request.</p></li>
+</ol>
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">shell</span>
+    <button class="copy" type="button" data-done="Copied" hidden>Copy</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="gp">$ </span>orbit session start --name render-loop
+</span></span><span class="line"><span class="cl"><span class="go">session render-loop is live · link copied</span>
+</span></span></code></pre></div>
+</figure>
+
+<h2 id="invite">Invite people and agents<a class="anchor" href="#invite" aria-label="Link to this section">#</a></h2>
+<p>An agent joins a session exactly like a person: it gets a cursor, its edits are attributed to it, and it can be removed at any time. Roles decide what each participant may do.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Role</th><th>Can edit</th><th>Can invite</th><th>Typical use</th></tr></thead>
+  <tbody>
+    <tr><td>Owner</td><td>Yes</td><td>Yes</td><td>Started the session</td></tr>
+    <tr><td>Editor</td><td>Yes</td><td>No</td><td>Pairing teammates, agents</td></tr>
+    <tr><td>Viewer</td><td>No</td><td>No</td><td>Reviewers, demos</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="how-merging-works">How merging works<a class="anchor" href="#how-merging-works" aria-label="Link to this section">#</a></h2>
+<p>Every buffer is a CRDT. A local edit is applied immediately, then sent to peers, who integrate it by identifier rather than by position; every replica converges on the same text.</p>
+<figure class="figure diagram">
+  <div class="figure-frame">
+    <pre class="mermaid">flowchart LR
+    edit[Local edit] --> apply[Apply now]
+    apply --> send[Send to peers]
+    send --> merge{Same id order?}
+    merge -- always --> done((Converged))</pre>
+  </div>
+  <figcaption>An edit is applied locally first; peers merge it by identifier.</figcaption>
+</figure>
+<p>The engineering post <a href="post-en.html">A data model for multiplayer editing</a> explains the trade-offs.</p>
+
+<h2 id="review">Review changes<a class="anchor" href="#review" aria-label="Link to this section">#</a></h2>
+<p>Changes from each participant stay attributable. Open <strong>Session › Review</strong> to read them as a diff grouped by author, then keep or revert each group.</p>
+<div class="callout callout-warning" role="note">
+  <p class="callout-title">Warning</p>
+  <p>Reverting a group also reverts later edits that depend on it. The review view marks those edits before you confirm.</p>
+</div>
+
+<h2 id="next-steps">Next steps<a class="anchor" href="#next-steps" aria-label="Link to this section">#</a></h2>
+<div class="ref-grid">
+  <a class="ref-card" href="#"><strong>Presence and cursors</strong><span>Follow a collaborator, or ask them to follow you.</span></a>
+  <a class="ref-card" href="#"><strong>Privacy</strong><span>What a session sends, to whom, and what never leaves your machine.</span></a>
+</div>

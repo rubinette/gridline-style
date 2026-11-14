@@ -546,30 +546,36 @@ body:has(.band) .header-rails { display: block; }
 .theme-toggle[aria-pressed="true"] .icon-sun { display: none; }
 .theme-toggle[aria-pressed="true"] .icon-moon { display: block; }
 
-/* Search field (docs). The <kbd> is a shortcut hint, hidden on touch widths. */
-.search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: min(320px, 100%);
-  min-height: 40px;
-  padding: 0 8px 0 12px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--muted);
-}
-.search:focus-within { border-color: var(--accent); }
+/* Search field (docs): the input is the 40px control; the icon and the
+   shortcut hint sit over it. Hint hidden on touch widths. */
+.search { position: relative; width: min(320px, 100%); color: var(--muted); }
+.search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; }
 .search input {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  background: transparent;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 40px 0 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
   color: var(--ink);
   font: 13px var(--mono);
   outline: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
+.search input:focus { border-color: var(--accent); }
 .search input::placeholder { color: var(--muted); }
-.search kbd { padding: 1px 5px; border: 1px solid var(--line-strong); font: 10px/1.4 var(--mono); color: var(--muted); }
+.search kbd {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 1px 5px;
+  border: 1px solid var(--line-strong);
+  font: 10px/1.4 var(--mono);
+  color: var(--muted);
+  pointer-events: none;
+}
 
 /* Announcement strip under the header. */
 .announce {
@@ -1217,7 +1223,7 @@ kbd.key {
 .prose ol.steps > li {
   position: relative;
   margin: 0;
-  padding: 0 0 1.2em 3em;
+  padding: 0 0 1.2em 2.2em;
   border-left: 1px solid var(--line);
   margin-left: .9em;
 }
@@ -1483,7 +1489,7 @@ kbd.key {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 32px;
+  min-height: 40px;
   padding: 0 8px;
   color: var(--accent);
   font: 12px/1.4 var(--mono);
@@ -1572,11 +1578,16 @@ kbd.key {
   .docs-nav-inner { position: static; max-height: none; }
   .docs-nav-toggle:not([hidden]) { display: inline-flex; width: 100%; justify-content: space-between; }
   .docs-nav-toggle[aria-expanded="true"] { border-color: var(--accent-line); color: var(--accent); }
+  .docs-nav-toggle span { transition: transform .15s; }
+  .docs-nav-toggle[aria-expanded="true"] span { transform: rotate(45deg); }
   .js .docs-nav-list:not([data-open="true"]) { display: none; }
   .docs-nav-list { margin-top: 12px; }
   .ref-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 600px) {
+  /* The search field needs the room; the brand mark stays. */
+  .header-inner:has(.search) .brand-name { display: none; }
+  .header-inner:has(.search) .search { flex: 1; width: auto; }
   .docs-main { padding: 32px var(--pad) 56px; }
   .docs-head { flex-direction: column; gap: 12px; }
 }

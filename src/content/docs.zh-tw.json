@@ -1,0 +1,20 @@
+{
+  "PAGE_TITLE": "共享工作階段",
+  "DESCRIPTION": "在（虛構的）Orbitline 編輯器裡啟動共享工作階段、邀請成員與代理，並審查他們的修改。",
+  "SEARCH_URL": "#",
+  "SEARCH_PLACEHOLDER": "搜尋文件…",
+  "DOCS_NAV_HTML": "@docs.nav.zh-tw.html",
+  "CRUMB_1": "文件",
+  "CRUMB_1_URL": "docs-zh-tw.html",
+  "CRUMB_2": "協作",
+  "CRUMB_2_URL": "docs-zh-tw.html",
+  "LEAD": "和隊友與代理一起編輯同一組緩衝區，不經伺服器就能合併，還能審查每個人改了什麼。",
+  "EDIT_URL": "#",
+  "TOC_HTML": "@docs.toc.zh-tw.html",
+  "ARTICLE_HTML": "@docs.article.zh-tw.html",
+  "PREV_URL": "#",
+  "PREV_TITLE": "命令面板",
+  "NEXT_URL": "#",
+  "NEXT_TITLE": "在線狀態與游標",
+  "UPDATED": "最後更新於 2026年11月10日"
+}

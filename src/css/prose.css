@@ -144,7 +144,7 @@ kbd.key {
 .prose ol.steps > li {
   position: relative;
   margin: 0;
-  padding: 0 0 1.2em 3em;
+  padding: 0 0 1.2em 2.2em;
   border-left: 1px solid var(--line);
   margin-left: .9em;
 }

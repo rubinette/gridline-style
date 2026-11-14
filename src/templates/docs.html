@@ -1,0 +1,93 @@
+<!-- gridline css="tokens base construction components prose docs diagram syntax" -->
+<!doctype html>
+<html lang="[[lang]]" class="no-js">
+<head>
+<!--@part:head-->
+<title>{{PAGE_TITLE}} · {{PRODUCT_NAME}} [[ui:docs_nav]]</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">[[ui:skip_to_content]]</a>
+<header class="site-header">
+  <div class="frame header-inner">
+    <i class="junction" aria-hidden="true"></i>
+    <a class="brand" href="{{HOME_URL}}">
+      <span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span>
+      <span class="brand-name">{{PRODUCT_NAME}}</span>
+    </a>
+    <!-- Wire the field to your search (an action URL, or a script). -->
+    <form class="search" role="search" action="{{SEARCH_URL}}">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor"/><path d="m11 11 4 4" stroke="currentColor"/></svg>
+      <input type="search" name="q" placeholder="{{SEARCH_PLACEHOLDER}}" aria-label="[[ui:search_label]]">
+      <kbd aria-hidden="true">/</kbd>
+    </form>
+    <div class="header-actions">
+      <!--@part:theme-toggle-->
+      <a class="button primary header-button" href="{{HEADER_CTA_URL}}">{{HEADER_CTA_LABEL}}</a>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <div class="frame docs-layout">
+    <!-- Navigation: one <details class="docs-group" open> per section, each with
+         a <summary> and a <ul> of links; nest a <ul> for sub-pages. Mark the
+         current page's link with aria-current="page". -->
+    <nav class="docs-nav" aria-label="[[ui:docs_nav]]">
+      <div class="docs-nav-inner">
+        <button class="button docs-nav-toggle" type="button" aria-expanded="false" aria-controls="docs-nav-list" hidden>[[ui:docs_menu]] <span aria-hidden="true">+</span></button>
+        <div class="docs-nav-list" id="docs-nav-list">
+          {{DOCS_NAV_HTML}}
+        </div>
+      </div>
+    </nav>
+
+    <article class="docs-main">
+      <header class="docs-head">
+        <div>
+          <ol class="breadcrumbs eyebrow" aria-label="[[ui:breadcrumb]]">
+            <li><a href="{{CRUMB_1_URL}}">{{CRUMB_1}}</a></li>
+            <li><a href="{{CRUMB_2_URL}}">{{CRUMB_2}}</a></li>
+          </ol>
+          <h1 class="docs-title">{{PAGE_TITLE}}</h1>
+          <p class="lead">{{LEAD}}</p>
+        </div>
+        <a class="button" href="{{EDIT_URL}}">[[ui:edit_page]]</a>
+      </header>
+
+      <details class="toc toc-inline">
+        <summary>[[ui:on_this_page]]</summary>
+        {{TOC_HTML}}
+      </details>
+
+      <!-- Article body: prose markup, plus docs pieces such as ol.steps,
+           .state labels, .ref-grid cards. See references/components.md. -->
+      <div class="prose">
+        {{ARTICLE_HTML}}
+      </div>
+
+      <footer class="docs-footer">
+        <nav class="post-nav" aria-label="[[ui:previous]] / [[ui:next]]">
+          <a class="prev" href="{{PREV_URL}}"><span class="nav-label">← [[ui:previous]]</span><span class="post-nav-title">{{PREV_TITLE}}</span></a>
+          <a class="next" href="{{NEXT_URL}}"><span class="nav-label">[[ui:next]] →</span><span class="post-nav-title">{{NEXT_TITLE}}</span></a>
+        </nav>
+        <p class="docs-updated">{{UPDATED}}</p>
+      </footer>
+    </article>
+
+    <aside class="docs-toc">
+      <div class="aside-sticky">
+        <nav class="toc toc-aside" aria-label="[[ui:on_this_page]]">
+          <p class="nav-label">[[ui:on_this_page]]</p>
+          {{TOC_HTML}}
+        </nav>
+      </div>
+    </aside>
+  </div>
+</main>
+<!--@part:footer-->
+<!--@part:diagram-script-->
+</body>
+</html>
