@@ -700,3 +700,6 @@
 .sketch .node { stroke: var(--line-strong); stroke-width: 1.5; fill: var(--node-fill); }
 .sketch .dot { fill: var(--accent); }
 .sketch text { fill: var(--muted); font: 11px var(--mono); }
+.sketch .tx { fill: var(--ink); }
+.sketch .ac { fill: var(--accent); }
+.sketch.lg text { font-size: 14px; }

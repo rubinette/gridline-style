@@ -9,6 +9,7 @@ Sources (edit these):
   src/parts/<name>.html    shared markup (header, footer, ...)
   src/content/<name>.<lang>.json   example content (placeholder -> value)
   src/content/_shared.<lang>.json  content the parts use (brand, navigation, footer)
+  A content value "@name.html" is read from src/content/name.html (long HTML bodies).
 
 Outputs (generated, committed):
   assets/templates/<name>-<lang>.html  self-contained, {{PLACEHOLDERS}} kept
@@ -133,7 +134,17 @@ def fill(name: str, lang: str, template: str, content: dict, shared: dict) -> st
     if unused:
         raise BuildError(f"src/content/{name}.{lang}.json has keys the template does not use: {', '.join(unused)}")
     values = {**shared, **content}
-    return PLACEHOLDER.sub(lambda m: str(values[m.group(1)]), template)
+
+    def value(key: str) -> str:
+        v = str(values[key])
+        if v.startswith("@") and v.endswith(".html"):
+            path = SRC / "content" / v[1:]
+            if not path.exists():
+                raise BuildError(f"src/content/{name}.{lang}.json: {key} points to missing {v[1:]}")
+            return read(path).strip()
+        return v
+
+    return PLACEHOLDER.sub(lambda m: value(m.group(1)), template)
 
 
 def outputs() -> dict[Path, str]:

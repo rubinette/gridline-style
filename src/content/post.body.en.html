@@ -1,0 +1,145 @@
+<p>When two people type on the same line at the same moment, whose character comes first? It sounds like an interface detail. In practice it decides the data structure underneath the whole editor. This post starts from the smallest possible example and explains why Orbitline uses a <em>CRDT</em> (conflict-free replicated data type), and what that choice costs.</p>
+
+<div class="callout callout-note" role="note">
+  <p class="callout-title">Note</p>
+  <p>This post is sample content for gridline-style. Orbitline is fictional and nothing here is a real measurement.</p>
+</div>
+<h2 id="the-problem-two-inserts-at-one-position">The problem: two inserts at one position<a class="anchor" href="#the-problem-two-inserts-at-one-position" aria-label="Link to this section">#</a></h2>
+<p>Start with an empty document. Alice inserts <code>a</code> at position 0 and Bob inserts <code>b</code> at position 0. Each applies their own edit first, then receives the other&rsquo;s:</p>
+<ul>
+<li>Alice has <code>a</code>, receives &ldquo;insert <code>b</code> at 0&rdquo;, and ends up with <code>ba</code></li>
+<li>Bob has <code>b</code>, receives &ldquo;insert <code>a</code> at 0&rdquo;, and ends up with <code>ab</code></li>
+</ul>
+<p>The two documents have diverged. Every collaborative system has to answer <strong>which one is right?</strong> More importantly, both sides have to reach the same answer without asking each other.</p>
+
+<figure class="figure">
+  <div class="figure-frame"><svg class="sketch lg" viewBox="0 0 720 300" role="img" aria-label="Two replicas insert at the same position; ordering by identifier makes them converge">
+    <path class="grid" d="M0 60H720M0 120H720M0 180H720M0 240H720M60 0V300M120 0V300M180 0V300M240 0V300M300 0V300M360 0V300M420 0V300M480 0V300M540 0V300M600 0V300M660 0V300"/>
+    <rect class="box" x="60" y="40" width="180" height="60"/>
+    <rect class="box" x="60" y="200" width="180" height="60"/>
+    <path class="ln" d="M240 70H330L390 150M240 230H330L390 150M390 150H480"/>
+    <rect class="hi" x="480" y="120" width="180" height="60"/>
+    <path class="dot" d="M390 138l12 12-12 12-12-12z"/>
+    <text class="tx" x="76" y="66">A: insert "a"</text><text x="76" y="88">@ (1, A)</text>
+    <text class="tx" x="76" y="226">B: insert "b"</text><text x="76" y="248">@ (1, B)</text>
+    <text class="ac" x="496" y="146">"ab" on both</text><text class="ac" x="496" y="168">sorted by id</text>
+  </svg></div><figcaption>Figure 1: inserts carry unique identifiers, and one ordering rule makes both replicas converge.</figcaption>
+</figure><h2 id="two-roads-operational-transformation-and-crdts">Two roads: operational transformation and CRDTs<a class="anchor" href="#two-roads-operational-transformation-and-crdts" aria-label="Link to this section">#</a></h2>
+<p>The classic approach is <em>operational transformation</em>: when a remote edit arrives, transform its position against the local edits that already happened. It works well with a central server that orders everything, but proving the transform functions correct is famously hard.</p>
+<p>CRDTs come at it from the other side. Instead of describing an insert by <em>position</em>, every character gets a globally unique, ordered identifier. An insert says &ldquo;place this after character X&rdquo;, not &ldquo;place this at index 3&rdquo;.</p>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Operational transformation</th>
+      <th>CRDT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Needs central ordering</td>
+      <td>Usually</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Offline editing</td>
+      <td>Hard</td>
+      <td>Natural</td>
+    </tr>
+    <tr>
+      <td>Memory cost</td>
+      <td>Low</td>
+      <td>Keeps tombstones</td>
+    </tr>
+    <tr>
+      <td>Correctness argument</td>
+      <td>Complex transforms</td>
+      <td>Follows from the structure</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="offline-is-what-we-care-about-most">Offline is what we care about most<a class="anchor" href="#offline-is-what-we-care-about-most" aria-label="Link to this section">#</a></h3>
+<p>A big share of Orbitline use is closing the laptop on a train, writing anyway, and syncing on arrival. For operational transformation that is one very long run of unacknowledged edits. For a CRDT it is an ordinary merge.</p>
+
+<figure class="figure diagram">
+  <div class="figure-frame">
+    <pre class="mermaid">sequenceDiagram
+    participant A as Replica A
+    participant S as Sync service
+    participant B as Replica B
+    A-&gt;&gt;S: insert &#34;a&#34; @ (1, A)
+    Note over B: Offline, still editing
+    B-&gt;&gt;B: insert &#34;b&#34; @ (1, B)
+    B-&gt;&gt;S: Back online, send queued edits
+    S--&gt;&gt;A: Forward insert &#34;b&#34;
+    S--&gt;&gt;B: Forward insert &#34;a&#34;
+    Note over A,B: Sorted by (clock, replica), both read &#34;ab&#34;</pre>
+  </div>
+  <figcaption>Figure 2: replica B keeps editing offline; once it reconnects, both sides exchange edits and sort by identifier into the same document.</figcaption>
+</figure>
+<h2 id="the-smallest-implementation">The smallest implementation<a class="anchor" href="#the-smallest-implementation" aria-label="Link to this section">#</a></h2>
+<p>Here is a simplified version. Every character carries an <code>Id</code> made of a replica number and a monotonic clock. Ordering compares the clock first and the replica second, so every replica sorts identically.</p>
+
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">buffer/src/id.rs</span>
+    <button class="copy" type="button" data-done="Copied" hidden>Copy</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="sd">/// A globally unique, totally ordered identifier for one character.
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Id</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">clock</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">     </span><span class="c1">// compared first
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">replica</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">   </span><span class="c1">// breaks ties between replicas
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Char</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">id</span>: <span class="nc">Id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">after</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// the character this one was inserted after
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">value</span>: <span class="kt">char</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">deleted</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">     </span><span class="c1">// tombstone: never removed, only hidden
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+</figure>
+<p>Deleting never removes a character; it leaves a tombstone. That is the most common complaint about CRDTs: documents only grow. We compact in the background once every replica has acknowledged a delete.</p>
+
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">diff</span>
+    <button class="copy" type="button" data-done="Copied" hidden>Copy</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> fn apply(&amp;mut self, op: Op) {
+</span></span><span class="line"><span class="cl">     match op {
+</span></span><span class="line"><span class="cl">         Op::Insert(c) =&gt; self.integrate(c),
+</span></span><span class="line"><span class="cl"><span class="gd">-        Op::Delete(id) =&gt; self.chars.remove(&amp;id),
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        Op::Delete(id) =&gt; self.mark_deleted(id),
+</span></span></span><span class="line"><span class="cl">     }
+</span></span><span class="line"><span class="cl"> }
+</span></span></code></pre></div>
+</figure>
+
+<blockquote>
+  <p>Choosing a data structure is choosing where you are willing to pay for complexity.</p>
+
+</blockquote>
+<h2 id="costs-and-trade-offs">Costs and trade-offs<a class="anchor" href="#costs-and-trade-offs" aria-label="Link to this section">#</a></h2>
+<p>CRDTs are not free. We accepted three things:</p>
+<ol>
+<li><strong>Memory</strong>: tombstones and identifiers add a fixed overhead per character.</li>
+<li><strong>Intent</strong>: &ldquo;consistent order&rdquo; is not the same as &ldquo;what the user meant&rdquo;; interleaved inserts can still read oddly.</li>
+<li><strong>Debugging</strong>: bugs often appear only under one particular merge order, so we need replayable operation logs.</li>
+</ol>
+
+<div class="callout callout-warning" role="note">
+  <p class="callout-title">Warning</p>
+  <p>If your product always has a central server and almost never edits offline, operational transformation may still be the simpler choice.</p>
+</div>
+<h2 id="next">Next<a class="anchor" href="#next" aria-label="Link to this section">#</a></h2>
+<p>The next post covers the tombstone compaction algorithm and how it runs in the background without blocking input. Keystroke latency is the one thing we refuse to trade away; see <a href="blog-index-en.html">the render loop post</a> for more.</p>
+<p>To try it locally, press <kbd>⌘</kbd> <kbd>K</kbd> and run <code>collab: share</code>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Sample content: neither Orbitline nor this command exists.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>

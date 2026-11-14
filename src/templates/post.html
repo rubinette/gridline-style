@@ -1,0 +1,89 @@
+<!-- gridline css="tokens base construction components prose blog diagram syntax" -->
+<!doctype html>
+<html lang="[[lang]]" class="no-js">
+<head>
+<!--@part:head-->
+<title>{{TITLE}} · {{PRODUCT_NAME}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<!--@part:header-->
+<main id="main">
+  <article class="post">
+    <!-- The header band: outer rails with a fine grid in the margins, a hatch
+         inside the frame. The site header draws the diamonds on its top edge. -->
+    <header class="band hatch">
+      <div class="band-rails" aria-hidden="true"><i class="junction"></i></div>
+      <div class="frame band-inner">
+        <i class="junction" aria-hidden="true"></i>
+        <p class="eyebrow"><a href="{{CATEGORY_URL}}">{{CATEGORY}}</a></p>
+        <h1 class="post-title">{{TITLE}}</h1>
+        <!-- One <li class="author"> per author; delete the second for a single author. -->
+        <ul class="byline" aria-label="[[ui:by]]">
+          <li class="author">
+            <span class="avatars md" aria-hidden="true"><span class="avatar">{{AUTHOR_1_INITIAL}}</span></span>
+            <span class="author-text"><a href="{{AUTHOR_1_URL}}">{{AUTHOR_1_NAME}}</a><span class="author-role">{{AUTHOR_1_ROLE}}</span></span>
+          </li>
+          <li class="author">
+            <span class="avatars md" aria-hidden="true"><span class="avatar">{{AUTHOR_2_INITIAL}}</span></span>
+            <span class="author-text"><a href="{{AUTHOR_2_URL}}">{{AUTHOR_2_NAME}}</a><span class="author-role">{{AUTHOR_2_ROLE}}</span></span>
+          </li>
+        </ul>
+        <p class="post-meta"><time datetime="{{DATETIME}}">{{DATE}}</time><span>{{READING_TIME}}</span></p>
+      </div>
+    </header>
+
+    <div class="frame post-layout">
+      <div class="post-main">
+        <details class="toc toc-inline">
+          <summary>[[ui:on_this_page]]</summary>
+          {{TOC_HTML}}
+        </details>
+
+        <!-- Article body: prose markup (h2/h3 with ids and .anchor links,
+             .callout, .figure, .code-block, .table-wrap, blockquote, footnotes).
+             See references/components.md. -->
+        <div class="prose">
+          {{BODY_HTML}}
+        </div>
+
+        <footer class="post-footer">
+          <ul class="tag-list" aria-label="[[ui:tags]]">
+            <li><a href="{{TAG_1_URL}}">#{{TAG_1}}</a></li>
+            <li><a href="{{TAG_2_URL}}">#{{TAG_2}}</a></li>
+            <li><a href="{{TAG_3_URL}}">#{{TAG_3}}</a></li>
+          </ul>
+          <nav class="post-nav" aria-label="[[ui:previous]] / [[ui:next]]">
+            <a class="prev" href="{{PREV_URL}}"><span class="nav-label">← [[ui:previous]]</span><span class="post-nav-title">{{PREV_TITLE}}</span></a>
+            <a class="next" href="{{NEXT_URL}}"><span class="nav-label">[[ui:next]] →</span><span class="post-nav-title">{{NEXT_TITLE}}</span></a>
+          </nav>
+        </footer>
+      </div>
+
+      <aside class="post-aside">
+        <div class="aside-sticky">
+          <nav class="toc toc-aside" aria-label="[[ui:on_this_page]]">
+            <p class="nav-label">[[ui:on_this_page]]</p>
+            {{TOC_HTML}}
+          </nav>
+          <!-- OPTIONAL related links. -->
+          <div class="links-box">
+            <p class="nav-label">[[ui:see_also]]</p>
+            <ul>
+              <li><a href="{{LINK_1_URL}}">{{LINK_1}} <span aria-hidden="true">→</span></a></li>
+              <li><a href="{{LINK_2_URL}}">{{LINK_2}} <span aria-hidden="true">→</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+<!--@part:cta-->
+</main>
+<!--@part:footer-->
+<!--@part:diagram-script-->
+</body>
+</html>

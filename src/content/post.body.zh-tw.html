@@ -1,0 +1,145 @@
+<p>兩個人同時在同一行打字時，誰的字該排在前面？這個問題看起來像是介面細節，實際上決定了整個編輯器的資料結構。這篇文章從一個最小的例子出發，說明我們為什麼在 Orbitline 裡選擇了 <em>CRDT</em>（無衝突複製資料型別），以及這個選擇帶來的代價。</p>
+
+<div class="callout callout-note" role="note">
+  <p class="callout-title">附註</p>
+  <p>本文是 gridline-style 的示範內容。Orbitline 是虛構產品，文中沒有任何真實的效能數據。</p>
+</div>
+<h2 id="問題同一個位置兩個插入">問題：同一個位置，兩個插入<a class="anchor" href="#%e5%95%8f%e9%a1%8c%e5%90%8c%e4%b8%80%e5%80%8b%e4%bd%8d%e7%bd%ae%e5%85%a9%e5%80%8b%e6%8f%92%e5%85%a5" aria-label="連結到此段落">#</a></h2>
+<p>假設文件內容是空的，甲在位置 0 插入 <code>a</code>，乙也在位置 0 插入 <code>b</code>。兩邊各自套用自己的操作之後，再收到對方的操作：</p>
+<ul>
+<li>甲看到的是 <code>a</code>，然後收到「在位置 0 插入 <code>b</code>」，得到 <code>ba</code></li>
+<li>乙看到的是 <code>b</code>，然後收到「在位置 0 插入 <code>a</code>」，得到 <code>ab</code></li>
+</ul>
+<p>兩份文件從此分歧。任何協作系統都必須回答：<strong>最後應該是哪一個？</strong> 更重要的是，兩邊要怎麼在不互相詢問的情況下得到同一個答案。</p>
+
+<figure class="figure">
+  <div class="figure-frame"><svg class="sketch lg" viewBox="0 0 720 300" role="img" aria-label="兩個副本在同一位置插入字元，依識別碼排序後收斂成相同結果">
+    <path class="grid" d="M0 60H720M0 120H720M0 180H720M0 240H720M60 0V300M120 0V300M180 0V300M240 0V300M300 0V300M360 0V300M420 0V300M480 0V300M540 0V300M600 0V300M660 0V300"/>
+    <rect class="box" x="60" y="40" width="180" height="60"/>
+    <rect class="box" x="60" y="200" width="180" height="60"/>
+    <path class="ln" d="M240 70H330L390 150M240 230H330L390 150M390 150H480"/>
+    <rect class="hi" x="480" y="120" width="180" height="60"/>
+    <path class="dot" d="M390 138l12 12-12 12-12-12z"/>
+    <text class="tx" x="76" y="66">A: insert "a"</text><text x="76" y="88">@ (1, A)</text>
+    <text class="tx" x="76" y="226">B: insert "b"</text><text x="76" y="248">@ (1, B)</text>
+    <text class="ac" x="496" y="146">"ab" on both</text><text class="ac" x="496" y="168">sorted by id</text>
+  </svg></div><figcaption>圖一：插入操作帶著唯一識別碼，排序規則讓兩個副本收斂。</figcaption>
+</figure><h2 id="兩條路操作轉換與-crdt">兩條路：操作轉換與 CRDT<a class="anchor" href="#%e5%85%a9%e6%a2%9d%e8%b7%af%e6%93%8d%e4%bd%9c%e8%bd%89%e6%8f%9b%e8%88%87-crdt" aria-label="連結到此段落">#</a></h2>
+<p>傳統的做法是<em>操作轉換</em>（Operational Transformation）：收到遠端操作時，根據本地已經發生的操作去「轉換」它的位置。這在有中央伺服器排序時運作良好，但轉換函式的正確性證明出了名地困難。</p>
+<p>CRDT 換了一個角度：不再用「位置」描述插入，而是讓每個字元都有一個全域唯一、可排序的識別碼。插入操作說的是「把這個字元放在識別碼 X 的後面」，而不是「放在第 3 個位置」。</p>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>面向</th>
+      <th>操作轉換</th>
+      <th>CRDT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>需要中央排序</td>
+      <td>通常需要</td>
+      <td>不需要</td>
+    </tr>
+    <tr>
+      <td>離線編輯</td>
+      <td>困難</td>
+      <td>自然支援</td>
+    </tr>
+    <tr>
+      <td>記憶體成本</td>
+      <td>低</td>
+      <td>需保留刪除標記</td>
+    </tr>
+    <tr>
+      <td>正確性推導</td>
+      <td>轉換函式複雜</td>
+      <td>由資料結構保證</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="我們最在意的是離線">我們最在意的是離線<a class="anchor" href="#%e6%88%91%e5%80%91%e6%9c%80%e5%9c%a8%e6%84%8f%e7%9a%84%e6%98%af%e9%9b%a2%e7%b7%9a" aria-label="連結到此段落">#</a></h3>
+<p>Orbitline 的使用情境裡，有很大一部分是筆電闔上、在高鐵上繼續寫，然後下車再同步。對操作轉換來說，這等於一段很長的「未確認操作」；對 CRDT 來說，這只是普通的合併。</p>
+
+<figure class="figure diagram">
+  <div class="figure-frame">
+    <pre class="mermaid">sequenceDiagram
+    participant A as 副本 A
+    participant S as 同步服務
+    participant B as 副本 B
+    A-&gt;&gt;S: insert &#34;a&#34; @ (1, A)
+    Note over B: 離線，繼續編輯
+    B-&gt;&gt;B: insert &#34;b&#34; @ (1, B)
+    B-&gt;&gt;S: 回到線上，送出暫存的操作
+    S--&gt;&gt;A: 轉送 insert &#34;b&#34;
+    S--&gt;&gt;B: 轉送 insert &#34;a&#34;
+    Note over A,B: 依 (clock, replica) 排序，兩邊都是 &#34;ab&#34;</pre>
+  </div>
+  <figcaption>圖二：副本 B 離線時繼續編輯，回到線上後兩邊交換操作，依識別碼排序得到相同的文件。</figcaption>
+</figure>
+<h2 id="最小的實作">最小的實作<a class="anchor" href="#%e6%9c%80%e5%b0%8f%e7%9a%84%e5%af%a6%e4%bd%9c" aria-label="連結到此段落">#</a></h2>
+<p>下面是簡化過的資料結構。每個字元帶著一個 <code>Id</code>，由副本編號與遞增的時鐘組成；排序時先比時鐘，再比副本編號，確保所有副本得到相同的順序。</p>
+
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">buffer/src/id.rs</span>
+    <button class="copy" type="button" data-done="已複製" hidden>複製</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="sd">/// A globally unique, totally ordered identifier for one character.
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Id</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">clock</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">     </span><span class="c1">// compared first
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">replica</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">   </span><span class="c1">// breaks ties between replicas
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Char</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">id</span>: <span class="nc">Id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">after</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// the character this one was inserted after
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">value</span>: <span class="kt">char</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">deleted</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">     </span><span class="c1">// tombstone: never removed, only hidden
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+</figure>
+<p>刪除不會真的移除字元，而是留下一個「墓碑」標記。這是 CRDT 最常被詬病的地方：文件會越來越大。我們的做法是在所有副本都確認看過某個刪除之後，再於背景壓縮。</p>
+
+<figure class="code-block">
+  <figcaption class="code-head">
+    <span class="code-label">diff</span>
+    <button class="copy" type="button" data-done="已複製" hidden>複製</button>
+  </figcaption><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> fn apply(&amp;mut self, op: Op) {
+</span></span><span class="line"><span class="cl">     match op {
+</span></span><span class="line"><span class="cl">         Op::Insert(c) =&gt; self.integrate(c),
+</span></span><span class="line"><span class="cl"><span class="gd">-        Op::Delete(id) =&gt; self.chars.remove(&amp;id),
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        Op::Delete(id) =&gt; self.mark_deleted(id),
+</span></span></span><span class="line"><span class="cl">     }
+</span></span><span class="line"><span class="cl"> }
+</span></span></code></pre></div>
+</figure>
+
+<blockquote>
+  <p>選擇資料結構，其實就是選擇你願意在哪裡付出複雜度。</p>
+
+</blockquote>
+<h2 id="代價與取捨">代價與取捨<a class="anchor" href="#%e4%bb%a3%e5%83%b9%e8%88%87%e5%8f%96%e6%8d%a8" aria-label="連結到此段落">#</a></h2>
+<p>CRDT 不是免費的。我們在這個決定裡接受了三件事：</p>
+<ol>
+<li><strong>記憶體</strong>：墓碑與識別碼讓每個字元多出固定的開銷。</li>
+<li><strong>意圖</strong>：「排序一致」不等於「符合使用者意圖」，交錯插入的文字仍然可能讀起來很怪。</li>
+<li><strong>除錯</strong>：問題常常只在特定的合併順序下出現，需要可重播的操作紀錄。</li>
+</ol>
+
+<div class="callout callout-warning" role="note">
+  <p class="callout-title">警告</p>
+  <p>如果你的產品一定有中央伺服器、而且幾乎不需要離線編輯，操作轉換可能仍是更簡單的選擇。</p>
+</div>
+<h2 id="接下來">接下來<a class="anchor" href="#%e6%8e%a5%e4%b8%8b%e4%be%86" aria-label="連結到此段落">#</a></h2>
+<p>下一篇會談壓縮墓碑的演算法，以及我們如何在不阻塞輸入的前提下，在背景完成它。按鍵延遲是我們最不願意犧牲的東西 —— 這部分可以參考<a href="blog-index-zh-tw.html">渲染迴圈那篇文章</a>。</p>
+<p>如果想在本機試試看，可以用 <kbd>⌘</kbd> <kbd>K</kbd> 打開命令面板，輸入 <code>collab: share</code> 開始一個協作工作階段。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>這是示範內容，Orbitline 與這個指令並不存在。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
