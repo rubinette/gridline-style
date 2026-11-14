@@ -1,0 +1,119 @@
+<!-- gridline css="tokens base construction components blog" -->
+<!doctype html>
+<html lang="[[lang]]" class="no-js">
+<head>
+<!--@part:head-->
+<title>{{BLOG_TITLE}} · {{PRODUCT_NAME}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/*@css*/
+</style>
+</head>
+<body>
+<!--@part:header-->
+<main id="main">
+  <section class="hero grid-bg" aria-labelledby="blog-title">
+    <div class="frame hero-inner center">
+      <p class="eyebrow">{{EYEBROW}}</p>
+      <h1 id="blog-title">{{BLOG_TITLE}}</h1>
+      <p class="lead">{{LEAD}}</p>
+    </div>
+  </section>
+
+  <!-- Featured: the three newest or pinned posts. A .card-media holds a cover
+       image (<img>), an inline <svg class="sketch">, or this placeholder. -->
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+  <section class="frame card-grid" aria-label="{{FEATURED_LABEL}}">
+    <article class="card">
+      <a class="card-link" href="{{FEATURED_1_URL}}">
+        <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+        <div class="card-body">
+          <h2 class="card-title">{{FEATURED_1_TITLE}}</h2>
+          <p class="card-excerpt">{{FEATURED_1_EXCERPT}}</p>
+          <div class="card-meta"><span class="card-authors">{{FEATURED_1_AUTHORS}}</span><time datetime="{{FEATURED_1_DATETIME}}">{{FEATURED_1_DATE}}</time><span class="badge accent">[[ui:latest]]</span></div>
+        </div>
+      </a>
+    </article>
+    <article class="card">
+      <a class="card-link" href="{{FEATURED_2_URL}}">
+        <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+        <div class="card-body">
+          <h2 class="card-title">{{FEATURED_2_TITLE}}</h2>
+          <p class="card-excerpt">{{FEATURED_2_EXCERPT}}</p>
+          <div class="card-meta"><span class="card-authors">{{FEATURED_2_AUTHORS}}</span><time datetime="{{FEATURED_2_DATETIME}}">{{FEATURED_2_DATE}}</time></div>
+        </div>
+      </a>
+    </article>
+    <article class="card">
+      <a class="card-link" href="{{FEATURED_3_URL}}">
+        <div class="card-media"><div class="card-placeholder"><span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span></div></div>
+        <div class="card-body">
+          <h2 class="card-title">{{FEATURED_3_TITLE}}</h2>
+          <p class="card-excerpt">{{FEATURED_3_EXCERPT}}</p>
+          <div class="card-meta"><span class="card-authors">{{FEATURED_3_AUTHORS}}</span><time datetime="{{FEATURED_3_DATETIME}}">{{FEATURED_3_DATE}}</time></div>
+        </div>
+      </a>
+    </article>
+  </section>
+  <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
+
+  <section class="frame index-body" aria-label="[[ui:all_posts]]">
+    <nav class="cat-nav" aria-label="[[ui:categories]]">
+      <div class="cat-nav-inner">
+        <p class="nav-label">[[ui:categories]]</p>
+        <ul>
+          <li><a href="{{ALL_URL}}" aria-current="page"><span>[[ui:all_posts]]</span><span class="count">{{ALL_COUNT}}</span></a></li>
+          <li><a href="{{CAT_1_URL}}"><span>{{CAT_1}}</span><span class="count">{{CAT_1_COUNT}}</span></a></li>
+          <li><a href="{{CAT_2_URL}}"><span>{{CAT_2}}</span><span class="count">{{CAT_2_COUNT}}</span></a></li>
+          <li><a href="{{CAT_3_URL}}"><span>{{CAT_3}}</span><span class="count">{{CAT_3_COUNT}}</span></a></li>
+        </ul>
+        <p class="nav-label">[[ui:authors]]</p>
+        <ul>
+          <li><a href="{{AUTHOR_1_URL}}"><span>{{AUTHOR_1}}</span><span class="count">{{AUTHOR_1_COUNT}}</span></a></li>
+          <li><a href="{{AUTHOR_2_URL}}"><span>{{AUTHOR_2}}</span><span class="count">{{AUTHOR_2_COUNT}}</span></a></li>
+          <li><a href="{{AUTHOR_3_URL}}"><span>{{AUTHOR_3}}</span><span class="count">{{AUTHOR_3_COUNT}}</span></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- One .year heading per year, newest first; copy a <li> per post. The
+         badge is the category, or .badge.accent for a featured post. -->
+    <div class="post-list">
+      <h2 class="year"><span>{{YEAR_1}}</span></h2>
+      <ol class="rows">
+        <li><a class="row" href="{{ROW_1_URL}}">
+          <span class="row-title"><span class="row-text">{{ROW_1_TITLE}}</span><span class="avatars sm" aria-hidden="true"><span class="avatar">{{ROW_1_INITIAL}}</span></span><span class="sr-only"> — {{ROW_1_AUTHORS}}</span></span>
+          <span class="row-meta"><span class="badge">{{ROW_1_BADGE}}</span><time datetime="{{ROW_1_DATETIME}}">{{ROW_1_DATE}}</time></span>
+        </a></li>
+        <li><a class="row" href="{{ROW_2_URL}}">
+          <span class="row-title"><span class="row-text">{{ROW_2_TITLE}}</span><span class="avatars sm" aria-hidden="true"><span class="avatar">{{ROW_2_INITIAL}}</span></span><span class="sr-only"> — {{ROW_2_AUTHORS}}</span></span>
+          <span class="row-meta"><span class="badge">{{ROW_2_BADGE}}</span><time datetime="{{ROW_2_DATETIME}}">{{ROW_2_DATE}}</time></span>
+        </a></li>
+        <li><a class="row" href="{{ROW_3_URL}}">
+          <span class="row-title"><span class="row-text">{{ROW_3_TITLE}}</span><span class="avatars sm" aria-hidden="true"><span class="avatar">{{ROW_3_INITIAL}}</span></span><span class="sr-only"> — {{ROW_3_AUTHORS}}</span></span>
+          <span class="row-meta"><span class="badge">{{ROW_3_BADGE}}</span><time datetime="{{ROW_3_DATETIME}}">{{ROW_3_DATE}}</time></span>
+        </a></li>
+      </ol>
+      <h2 class="year"><span>{{YEAR_2}}</span></h2>
+      <ol class="rows">
+        <li><a class="row" href="{{ROW_4_URL}}">
+          <span class="row-title"><span class="row-text">{{ROW_4_TITLE}}</span><span class="avatars sm" aria-hidden="true"><span class="avatar">{{ROW_4_INITIAL}}</span></span><span class="sr-only"> — {{ROW_4_AUTHORS}}</span></span>
+          <span class="row-meta"><span class="badge">{{ROW_4_BADGE}}</span><time datetime="{{ROW_4_DATETIME}}">{{ROW_4_DATE}}</time></span>
+        </a></li>
+        <li><a class="row" href="{{ROW_5_URL}}">
+          <span class="row-title"><span class="row-text">{{ROW_5_TITLE}}</span><span class="avatars sm" aria-hidden="true"><span class="avatar">{{ROW_5_INITIAL}}</span></span><span class="sr-only"> — {{ROW_5_AUTHORS}}</span></span>
+          <span class="row-meta"><span class="badge">{{ROW_5_BADGE}}</span><time datetime="{{ROW_5_DATETIME}}">{{ROW_5_DATE}}</time></span>
+        </a></li>
+      </ol>
+
+      <!-- OPTIONAL pagination. -->
+      <nav class="pagination" aria-label="{{PAGE_OF}}">
+        <span class="page-of">{{PAGE_OF}}</span>
+        <a class="button" href="{{OLDER_URL}}">[[ui:older]] <span class="arrow" aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+  </section>
+</main>
+<!--@part:footer-->
+</body>
+</html>
