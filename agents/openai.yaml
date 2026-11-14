@@ -1,0 +1,5 @@
+interface:
+  display_name: "Gridline Style"
+  short_description: "Grid-led pages, docs and briefs in the Gridline style"
+  brand_color: "#315CF4"
+  default_prompt: "Use $gridline-style to create a landing page, docs page, changelog, blog post or technical brief."
