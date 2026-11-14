@@ -120,4 +120,4 @@ Gridline's layout vocabulary was informed by looking at zed.dev at a high level 
 
 ## 10. Relationship to hugo-gridline
 
-The Hugo theme `hugo-gridline` implements the same system and shares class names (`.frame`, `.grid-bg`, `.divider`, `.junction`, `.card-grid`, `.row`, `.prose`, `.code-block`, `.callout-*`, `.figure`, `.mermaid-diagram`, ...). Its post header predates `.band` and is named `.post-hero`; treat them as the same component. When a rule changes here, change it there in the same way, and vice versa.
+The Hugo theme `hugo-gridline` does not keep its own copy of the system: its `scripts/sync-gridline-style.py` copies `src/css/{tokens,base,construction,components,prose,blog,diagram,syntax}.css` and `src/js/{boot,site,diagram}.js` from this repository, and its templates use the same class names. Change styles here, rebuild, then run the sync in the theme (`--check` reports drift). Rules a Hugo site needs (language switch, large avatars, line-number tables) belong here too, so both stay one system.

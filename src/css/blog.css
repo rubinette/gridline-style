@@ -109,6 +109,7 @@
 .list-body { background: var(--surface); padding: 20px var(--pad) 48px; }
 .page-layout { background: var(--surface); padding: 56px var(--pad) 80px; }
 .page-layout .prose { max-width: 720px; }
+.page-layout .prose:lang(zh) { max-width: 38em; }  /* CJK keeps its own measure */
 
 /* Taxonomy grid (categories, tags, authors). */
 .term-grid {
@@ -203,5 +204,5 @@
   .row-meta time { min-width: 0; text-align: left; }
 }
 @media print {
-  .post-aside { display: none !important; }
+  .post-aside, .related { display: none !important; }
 }

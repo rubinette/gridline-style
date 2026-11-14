@@ -83,7 +83,7 @@ python3 -m unittest discover -s scripts/tests # tests include "outputs are up to
 node scripts/layout.mjs assets/examples/*.html
 ```
 
-Update `references/design.md` and `tokens.json` with any rule or value change, and make the same change in hugo-gridline (shared class names) so the two do not drift.
+Update `references/design.md` and `tokens.json` with any rule or value change. hugo-gridline uses these CSS and JS modules directly: run its `python3 scripts/sync-gridline-style.py` after a change (and check its example site) so the theme follows.
 
 ## When not to use
 

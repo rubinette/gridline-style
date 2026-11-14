@@ -57,7 +57,8 @@ scripts/            build.py、check.py、layout.mjs、render.py、tests/
 1. 修改 `src/` 底下的檔案。
 2. 執行 `python3 scripts/build.py` 重新產生 `assets/`。
 3. 執行 `python3 -m unittest discover -s scripts/tests`（其中一項測試會確認 `assets/` 與原始碼一致）與 `node scripts/layout.mjs assets/examples/*.html`。
-4. 規則或數值有變動時，同步更新 `references/design.md`、`references/tokens.json`，以及 hugo-gridline 中對應的樣式（兩邊共用類別名稱）。
+4. 規則或數值有變動時，同步更新 `references/design.md`、`references/tokens.json`。
+5. hugo-gridline 直接使用這裡的 CSS 與 JS 模組：在主題執行 `python3 scripts/sync-gridline-style.py` 同步，並檢查它的範例網站。
 
 模板原始檔開頭的 `<!-- gridline css="…" -->` 指定要內嵌的 CSS 模組；`<!--@part:名稱-->` 引入共用片段，`[[ui:鍵]]` 會換成介面字串，`{{佔位符}}` 則保留給使用者填寫。範例內容的值若寫成 `"@檔名.html"`，會從 `src/content/` 讀入長篇 HTML。
 

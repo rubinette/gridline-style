@@ -112,6 +112,7 @@
 .avatars.sm .avatar { width: 20px; height: 20px; font-size: 9px; }
 .avatars.sm .avatar + .avatar { margin-left: -4px; }
 .avatars.md .avatar { width: 32px; height: 32px; font-size: 12px; }
+.avatars.lg .avatar { width: 64px; height: 64px; font-size: 22px; font-family: var(--display); font-weight: 400; }
 
 /* ── Site header ─────────────────────────────────────────────────────── */
 
@@ -175,6 +176,7 @@
 .nav-links a[aria-current="page"] { color: var(--accent); }
 
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.lang-switch { display: flex; gap: 8px; }
 .menu-toggle { display: none; }
 .theme-toggle .icon-moon { display: none; }
 .theme-toggle[aria-pressed="true"] .icon-sun { display: none; }
@@ -280,7 +282,9 @@
 .band .lead { margin: 18px 0 0; max-width: 620px; }
 .hero-inner.center .lead,
 .band-inner.center .lead { margin-inline: auto; }
-.hero .actions { margin-top: 28px; }
+.hero .lead p { margin: 0; }
+.hero .avatars { margin-bottom: 20px; }
+.hero .actions { margin: 28px 0 0; }
 .hero-inner.center .actions,
 .band-inner.center .actions { justify-content: center; }
 :lang(zh) .hero h1,
@@ -443,10 +447,13 @@
 }
 .section-head h2 { margin: 0; font: 400 34px/1.15 var(--display); letter-spacing: -.015em; }
 :lang(zh) .section-head h2 { font-weight: 500; letter-spacing: .02em; font-size: 30px; }
-.section-head p:not(.eyebrow) { margin: 10px 0 0; color: var(--muted); max-width: 460px; }
+.section-head p:not(.eyebrow) { margin: 0; color: var(--muted); max-width: 460px; }
+/* Title and lead stacked in one wrapper; as siblings they sit side by side. */
+.section-head > div > :is(h2, h3) + p { margin-top: 10px; }
 .section-head .actions { flex-shrink: 0; }
 @media (max-width: 880px) {
   .section-head { display: block; }
+  .section-head > p:not(.eyebrow) { margin-top: 10px; }
   .section-head .actions { margin-top: 18px; }
 }
 
@@ -540,6 +547,7 @@
   font: 13.5px/1.65 var(--code-font);
   tab-size: 4;
 }
+.code-block .highlight { margin: 0; }
 .code-block pre code { font: inherit; }
 @media (max-width: 600px) {
   .code-block { margin-inline: calc(-1 * var(--pad) - 1px); box-shadow: none; border-inline: 0; }
