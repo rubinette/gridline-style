@@ -39,6 +39,7 @@ uv run --no-project --with weasyprint --with pymupdf python scripts/render.py br
 ```
 SKILL.md            the agent's entry point: workflow and routing
 CHEATSHEET.md       one-page reference: invariants, tokens, classes, commands
+BRAND.md            brand guidelines: name, mark, colour, type, voice, attribution (BRAND.zh-TW.md in Chinese)
 references/         design.md (full spec), components.md (component markup), tokens.json,
                     content.md (content rules), mermaid.md, app-ui.md, anti-patterns.md
 src/                sources (edit these)

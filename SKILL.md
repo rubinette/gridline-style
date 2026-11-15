@@ -38,6 +38,7 @@ Templates: `assets/templates/<name>-en.html` and `<name>-zh-tw.html`, self-conta
 | Change layout, construction or visual behaviour | `references/design.md` (and `anti-patterns.md`) |
 | Application UI | `references/app-ui.md` + `references/design.md` |
 | Review a page | `references/anti-patterns.md` |
+| Name, mark, voice, cover art or attribution | `BRAND.md` |
 
 ## 4 · Fill the template
 
