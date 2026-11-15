@@ -2,7 +2,7 @@
 
 One page to scan before filling a template or nudging a detail. Full spec: `references/design.md`.
 
-## Ten invariants
+## Eleven invariants
 
 1. Gray-white canvas `#f5f5f0`, content columns `#fbfbf8`, cards `#ffffff`; dark mode mirrors every token.
 2. One accent, electric blue `#315cf4` (dark `#7e9bff`): primary action, current location, links, one key idea.
@@ -12,8 +12,9 @@ One page to scan before filling a template or nudging a detail. Full spec: `refe
 6. Serif display (Latin 300/400, CJK 500), sans body, mono for every label, button and caption; emphasis 600 max.
 7. Every line encodes structure: rails, band edges, column dividers; a diamond marks each crossing, once, centred.
 8. Grids are anchored to rails and frame heroes and bands, never reading text.
-9. 40px minimum controls, 2px accent focus outline, works without JavaScript.
+9. 40px minimum controls (24px for links outside running text), 2px accent focus outline, works without JavaScript.
 10. Never invent facts; `[DATA NEEDED: …]` instead. Fictional examples say they are fictional.
+11. Don't make readers think (`design.md` §8): header nav on every page with the current section marked, one kind of label per column, "Older / Newer post", no eyebrow that repeats the title.
 
 ## Core tokens
 

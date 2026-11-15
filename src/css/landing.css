@@ -12,12 +12,12 @@
 /* Value strip: three short claims in rail-divided cells. */
 .value-strip { background: var(--surface); }
 .value { padding: 22px 24px 24px; }
-.value h3, .feature h3 {
+.value h2, .feature h3 {
   margin: 0 0 6px;
   font: 400 18px/1.35 var(--display);
   letter-spacing: -.005em;
 }
-:lang(zh) .value h3, :lang(zh) .feature h3 { font-weight: 500; letter-spacing: .02em; }
+:lang(zh) .value h2, :lang(zh) .feature h3 { font-weight: 500; letter-spacing: .02em; }
 .value p, .feature p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
 
 /* Product panel: an abstract, schematic window. Never imitate a real product UI. */

@@ -117,7 +117,7 @@
 }
 @media (max-width: 600px) {
   /* The search field needs the room; the brand mark stays. */
-  .header-inner:has(.search) .brand-name { display: none; }
+  .header-inner:has(.search) .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .header-inner:has(.search) .search { flex: 1; width: auto; }
   .docs-main { padding: 32px var(--pad) 56px; }
   .docs-head { flex-direction: column; gap: 12px; }

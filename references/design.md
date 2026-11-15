@@ -87,10 +87,10 @@ All screen surfaces share the header, footer, frame and tokens. Templates: `asse
 Hero on the 20px grid → divider → three featured `.card-grid` cards → divider → `.index-body`: category and author rail (`.cat-nav`, current item accent) beside the post list grouped by year (`.year` labels, `.row` links with avatars, category badge, date) → pagination → footer. Below 880px the rail becomes a wrapped chip list above the list.
 
 ### Post (`post`)
-`.band.hatch` header (category eyebrow, title, byline with avatars and roles, date / reading time) → `.post-layout`: `.prose` article beside a 280px aside (sticky on-this-page TOC with the current section highlighted, optional links box) → tags, previous / next → CTA → footer. Below 1080px the aside hides and an inline `<details>` TOC opens the article. Figures, code blocks, callouts, tables and Mermaid diagrams are prose components (`components.md`).
+`.band.hatch` header (category eyebrow, title, byline with avatars and roles, date / reading time) → `.post-layout`: `.prose` article beside a 280px aside (sticky on-this-page TOC with the current section highlighted, optional links box) → tags, older / newer post → CTA → footer. Below 1080px the aside hides and an inline `<details>` TOC opens the article. Figures, code blocks, callouts, tables and Mermaid diagrams are prose components (`components.md`).
 
 ### Docs (`docs`)
-Header with a search field instead of the main nav → `.docs-layout`: navigation rail of `<details class="docs-group">` sections (current page accent), article (breadcrumbs, accent title, lead, edit button, prose with steps, states, reference cards, previous / next, last updated), on-this-page rail. Below 1180px the TOC rail folds into the article; below 880px the navigation collapses behind a disclosure button (open by default without JavaScript).
+Header with the main nav (Docs current) and a search field → `.docs-layout`: navigation rail of `<details class="docs-group">` sections (current page accent), article (breadcrumbs, accent title, lead, edit button, prose with steps, states, reference cards, previous / next, last updated), on-this-page rail. Below 1180px the TOC rail folds into the article; below 880px the navigation collapses behind a disclosure button (open by default without JavaScript).
 
 ### Changelog (`changelog`)
 `.band` header with a centred title → `.release-layout`: rail of channels and version anchors; feed of `.month` labels and `.release` cards (version, latest badge, date, prose notes grouped by h3: features, fixes, breaking changes); pin board with links and the release policy. Below 1180px the pin board moves under the feed; below 880px the rail becomes chips.
@@ -104,20 +104,36 @@ A4 pages for WeasyPrint: a cover with one construction `.frame` on the 8mm grid 
 ### Application UI
 No template: see `app-ui.md`.
 
-## 8. Responsive and accessibility review
+## 8. Usability
+
+Gridline pages should be self-evident: a reader glances, recognises what everything is and what can be clicked, and moves on. These rules come from Steve Krug's *Don't Make Me Think*, the Laws of UX (lawsofux.com), Nielsen's heuristics and WCAG 2.2; each names its source so a trade-off can be argued from it.
+
+- **Site ID and persistent navigation on every page** (Krug, Jakob's law). Every surface, docs included, carries the brand link and the main navigation in the header. Below 820px the navigation folds behind the Menu button; it never disappears. When the brand name is hidden for room, it stays in the link for screen readers so the home link always has a name.
+- **"You are here"** (Krug, Nielsen 1). The header link for the current section carries `aria-current="page"` (a post belongs under Blog; a home page that is the blog index belongs under Blog too). Rails mark the current page or filter the same way.
+- **Obviously clickable, and nothing else looks clickable** (Krug, law of similarity). Links in text are underlined in the accent line colour; whole-row and card links underline or recolour their title on hover. Badges are labels: no hover state, never a link styled as a badge.
+- **One kind of thing per column** (law of similarity, Prägnanz). A list's badge column shows the same kind of label on every row (the category). Status such as "featured" or "newest" belongs where it is the only one of its kind (the featured cards), not mixed into the category column.
+- **Labels say where they go** (Krug, Jakob's law). Between posts use "Older post" / "Newer post", not "Previous" / "Next", which readers cannot map to time. Buttons are verbs; arrows mark navigation.
+- **Target size** (Fitts's law, WCAG 2.5.8). Controls are at least 40px tall (§6). A link set apart from running text (footer, byline, version rail, chips) is at least 24px tall; links inside a sentence are exempt. `scripts/layout.mjs` checks both.
+- **Few choices at a time** (Hick's law, Miller's law). Keep the main navigation to about five items and one primary button per group; longer sets go in the footer or a rail, grouped under labels.
+- **One standout per view** (Von Restorff effect). The accent marks one primary action and the current location; a second accent-coloured element competes with it.
+- **Omit needless words** (Krug). An eyebrow adds information the title does not (a category, a step), never repeats it ("Blog" above "From the blog"). Leads are one or two sentences.
+- **Keyboard and structure** (WCAG 1.3.1, 2.1.1, 4.1.3). Headings do not skip levels (the value strip under the hero is `h2`); scroll boxes that overflow (`.table-wrap`, diagrams) get a tab stop from `site.js`; the copy button announces "Copied" through `aria-live`.
+
+## 9. Responsive and accessibility review
 
 Check every shipped language at 1440 (outer rails shown), 1280, 1000, 375 and 320px, in light and dark (`scripts/layout.mjs`):
 
 - no horizontal scroll; headings wrap deliberately; navigation and CTA groups stack without clipped labels at 320px;
-- every control at least 40px tall, with a visible 2px focus outline;
+- every control at least 40px tall, every link outside running text at least 24px, with a visible 2px focus outline;
+- header navigation present with the current section marked, and the usability rules in §8 hold;
 - grid lines meet rails, one diamond per crossing, outer rails folded below 1264px;
 - text contrast WCAG AA in both themes, including state labels on their soft backgrounds;
 - `<html lang>` matches the content (`en`, `zh-Hant-TW`), and Chinese headings, captions and emphasis stay upright.
 
-## 9. Originality boundary
+## 10. Originality boundary
 
 Gridline's layout vocabulary was informed by looking at zed.dev at a high level (rails, diamond nodes, editorial serif, mono furniture). It is an independent design system: never add Zed's logo, wordmark, screenshots, illustrations, marketing copy or source, and never imply affiliation. Examples use the fictional product Orbitline and say so. Third-party code that ships with a page (Pele for Mermaid) keeps its licence notice.
 
-## 10. Relationship to hugo-gridline
+## 11. Relationship to hugo-gridline
 
 The Hugo theme `hugo-gridline` does not keep its own copy of the system: its `scripts/sync-gridline-style.py` copies `src/css/{tokens,base,construction,components,prose,blog,diagram,syntax}.css` and `src/js/{boot,site,diagram}.js` from this repository, and its templates use the same class names. Change styles here, rebuild, then run the sync in the theme (`--check` reports drift). Rules a Hugo site needs (language switch, large avatars, line-number tables) belong here too, so both stay one system.

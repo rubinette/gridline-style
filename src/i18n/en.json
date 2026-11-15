@@ -37,6 +37,8 @@
     "close": "Close",
     "prepared_for": "Prepared for",
     "published": "Published",
-    "reading_time": "Reading time"
+    "reading_time": "Reading time",
+    "older_post": "Older post",
+    "newer_post": "Newer post"
   }
 }

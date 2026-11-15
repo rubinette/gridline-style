@@ -37,6 +37,8 @@
     "close": "關閉",
     "prepared_for": "閱讀對象",
     "published": "發布日期",
-    "reading_time": "閱讀時間"
+    "reading_time": "閱讀時間",
+    "older_post": "較舊文章",
+    "newer_post": "較新文章"
   }
 }
