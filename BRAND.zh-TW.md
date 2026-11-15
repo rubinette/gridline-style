@@ -2,7 +2,7 @@
 
 [English](BRAND.md) · **繁體中文**
 
-> 狀態：草稿 v0.1（2026年11月15日）。標示「待決定」的項目需要擁有者拍板。
+> 狀態：v0.2（2026年11月15日）。
 
 這份文件說明 Gridline 這個品牌「是什麼、長什麼樣、怎麼說話」。它寫給要介紹、推廣或延伸 Gridline 的人：寫 README、做截圖與封面圖、在其他網站提到 Gridline、或用 Gridline 打扮自己產品的人。實作數值與元件標記不在這裡重複，請看 [`references/design.md`](references/design.md)、[`references/tokens.json`](references/tokens.json) 與 [`references/components.md`](references/components.md)。
 
@@ -40,7 +40,7 @@
 
 ### 2.1 Gridline 標誌（Mark）
 
-目前唯一的標誌圖形是 hugo-gridline 的 [`static/favicon.svg`](https://github.com/rubinette/hugo-gridline/blob/main/static/favicon.svg)：32 × 32 格上的一個方框，中間一條淡十字構造線，正中央一顆空心菱形。它把品牌的三個元素濃縮在一起：框（frame）、構造線（grid）、節點（diamond）。
+標誌源自 hugo-gridline 的 [`static/favicon.svg`](https://github.com/rubinette/hugo-gridline/blob/main/static/favicon.svg)：32 × 32 格上的一個方框，中間一條淡十字構造線，正中央一顆空心菱形，獨立檔案見 §2.4。它把品牌的三個元素濃縮在一起：框（frame）、構造線（grid）、節點（diamond）。
 
 | 部分 | 規格 |
 | --- | --- |
@@ -68,11 +68,23 @@
 - 中文名稱的產品可用一個漢字，但要確認在 26 px 內清楚可讀。
 - 單字母標記是**採用者的**標記，不是 Gridline 的標誌；採用者有自己的 logo 時可直接替換。
 
-### 2.4 待決定
+### 2.4 標誌檔
 
-- [ ] 是否另外輸出 Gridline 標誌的獨立檔案（`brand/mark.svg`、`mark-dark.svg`、`mark-mono.svg`、PNG 尺寸組），目前只有 favicon。
-- [ ] 是否需要「標誌 + 字標」的橫式鎖定組合檔，供 README 與社群使用。
-- [ ] 社群預覽圖（Open Graph，1200 × 630）的標準版型。
+所有檔案在 [`brand/`](brand/)。SVG 是來源，PNG 由 `node scripts/brand.mjs` 產生（先 `npm install --prefix scripts`；沒有 Chrome 時以 `GRIDLINE_CHROME` 指定 Chromium 路徑）。
+
+| 檔案 | 用途 |
+| --- | --- |
+| `mark.svg`、`mark-dark.svg` | 標誌，固定淺色／深色 |
+| `mark-auto.svg` | favicon 用，跟隨系統深淺色（內含 `<style>`，只能當獨立檔案，不可內嵌進頁面） |
+| `mark-small.svg` | 小於 24 px 用，省略十字線 |
+| `mark-mono.svg` | 單色，描邊為 `currentColor` |
+| `lockup.svg`、`lockup-dark.svg` | 標誌＋字標橫式組合，README 與文件頁首 |
+| `og.svg`、`og-zh-tw.svg`、`og-dark.svg` | 社群預覽圖 1200 × 630 |
+| `png/` | 標誌 16–512 px、深色標誌、組合檔 2x、社群預覽圖 |
+
+社群預覽圖的版型：1040 px 寬的框（26 格 × 40 px），上下兩條帶線，四個交點各一顆菱形；框內鋪 40 px 構造格，左上是 80 px 標誌，下方是強調色的襯線大字「Gridline」與一行等寬字說明，框外底部放 repo 名稱與授權。替其他專案做預覽圖時沿用這個版型，換掉標誌、名稱與說明即可。
+
+字標與預覽圖的文字只寫字體堆疊、不嵌入字型，所以 PNG 的字形取決於產生時機器上裝的字體；正式發佈前請在裝有 IBM Plex 與 Lilex 的機器上重新產生。
 
 ## 3. 色彩
 

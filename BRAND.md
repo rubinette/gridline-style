@@ -2,7 +2,7 @@
 
 **English** · [繁體中文](BRAND.zh-TW.md)
 
-> Status: draft v0.1 (Nov 15, 2026). Items marked "To decide" need the owner's call.
+> Status: v0.2 (Nov 15, 2026).
 
 This document says what the Gridline brand is, how it looks and how it speaks. It is for anyone who introduces, promotes or extends Gridline: writing a README, making screenshots or cover art, mentioning Gridline elsewhere, or dressing their own product in Gridline. Implementation values and component markup are not repeated here; see [`references/design.md`](references/design.md), [`references/tokens.json`](references/tokens.json) and [`references/components.md`](references/components.md).
 
@@ -40,7 +40,7 @@ The three habits that never change (design.md §1): **every line encodes structu
 
 ### 2.1 The Gridline mark
 
-The only mark today is hugo-gridline's [`static/favicon.svg`](https://github.com/rubinette/hugo-gridline/blob/main/static/favicon.svg): a square frame on a 32 × 32 grid, a faint cross of construction lines through it, and a hollow diamond at the centre. It condenses the brand's three elements: frame, grid and node.
+The mark comes from hugo-gridline's [`static/favicon.svg`](https://github.com/rubinette/hugo-gridline/blob/main/static/favicon.svg): a square frame on a 32 × 32 grid, a faint cross of construction lines through it, and a hollow diamond at the centre; standalone files are listed in §2.4. It condenses the brand's three elements: frame, grid and node.
 
 | Part | Spec |
 | --- | --- |
@@ -68,11 +68,23 @@ When Gridline dresses **another** product, the header, card placeholders and CTA
 - A product with a Chinese name may use one Han character; check it reads clearly at 26 px.
 - The monogram is the **adopter's** mark, not Gridline's; an adopter with its own logo can replace it.
 
-### 2.4 To decide
+### 2.4 Mark files
 
-- [ ] Ship standalone Gridline mark files (`brand/mark.svg`, `mark-dark.svg`, `mark-mono.svg`, a PNG size set); today there is only the favicon.
-- [ ] A horizontal mark + wordmark lockup file for READMEs and social use.
-- [ ] A standard social preview (Open Graph, 1200 × 630) layout.
+Everything is in [`brand/`](brand/). The SVGs are the source; PNGs come from `node scripts/brand.mjs` (run `npm install --prefix scripts` first; set `GRIDLINE_CHROME` to a Chromium path if Chrome is not installed).
+
+| File | Use |
+| --- | --- |
+| `mark.svg`, `mark-dark.svg` | The mark, fixed light / dark |
+| `mark-auto.svg` | Favicon; follows the system theme (contains a `<style>`, so use it only as a standalone file, never inline it in a page) |
+| `mark-small.svg` | Below 24 px; no cross |
+| `mark-mono.svg` | Single colour, stroked with `currentColor` |
+| `lockup.svg`, `lockup-dark.svg` | Horizontal mark + wordmark for READMEs and document headers |
+| `og.svg`, `og-zh-tw.svg`, `og-dark.svg` | Social previews, 1200 × 630 |
+| `png/` | Mark at 16–512 px, dark mark, lockups at 2x, social previews |
+
+Social preview layout: a 1040 px frame (26 cells of 40 px) between two band lines, one diamond at each of the four crossings, a 40 px construction grid inside the frame, the mark at 80 px top left, then "Gridline" as a large accent serif and one mono line of description, with repository names and the licence below the frame. For another project's preview, keep the layout and swap the mark, name and line.
+
+The wordmark and previews name font stacks rather than embedding fonts, so the PNGs use whatever faces the rendering machine has. Regenerate them on a machine with IBM Plex and Lilex installed before a public release.
 
 ## 3. Colour
 
