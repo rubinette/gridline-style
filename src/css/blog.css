@@ -4,11 +4,11 @@
 .post-title {
   margin: 14px 0 0;
   max-width: 22ch;
-  color: var(--accent);
-  font: 300 clamp(36px, 5vw, 56px)/1.04 var(--display);
+  color: var(--ink);
+  font: 300 clamp(36px, 5vw, 56px)/1.08 var(--display);
   letter-spacing: -.025em;
 }
-:lang(zh) .post-title { max-width: 20em; font-weight: 500; letter-spacing: .02em; line-height: 1.25; }
+:lang(zh) .post-title { max-width: 20em; font-weight: 400; letter-spacing: .02em; line-height: 1.25; }
 
 /* Index: category rail + compact list grouped by year. */
 .index-body {

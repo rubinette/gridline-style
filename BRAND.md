@@ -123,7 +123,7 @@ When you change the accent, the light derived colours follow (`color-mix()`); th
 | Mono | Lilex → IBM Plex Mono → platform mono, then CJK sans for Chinese | Labels, buttons, dates, metadata |
 
 - All OFL faces. **Name the stacks; never link or embed font files**; pages must degrade cleanly.
-- Latin display 300 (titles) and 400 (sections); CJK headings 500; emphasis 600 and **nothing heavier**.
+- Titles are set in ink, never the accent. Latin display 300 (titles) and 400 (sections); CJK titles 400 and section heads 500; emphasis 600 and **nothing heavier**.
 - Italic only for English `<em>`, quotes and captions. Chinese is **never italic**; emphasis uses emphasis dots (`text-emphasis`).
 - The contrast of a light serif headline against small mono labels is the most recognisable type trait. Keep it in every piece.
 

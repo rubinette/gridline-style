@@ -78,10 +78,8 @@
 .release-body { padding: 20px 20px 4px; }
 .release-body.prose { max-width: none; font-size: 15.5px; }
 .release-body.prose h3 {
-  margin: 1.6em 0 .4em;
-  padding-bottom: .3em;
-  border-bottom: 1px solid var(--line);
-  font: 400 22px/1.3 var(--display);
+  margin: 1.6em 0 .5em;
+  font: 400 20px/1.3 var(--display);
 }
 :lang(zh) .release-body.prose h3 { font-weight: 500; }
 .release-body.prose h3:first-child { margin-top: .2em; }

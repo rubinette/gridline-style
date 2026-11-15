@@ -483,9 +483,9 @@ body:has(.band) .header-rails { display: block; }
   height: 28px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid var(--accent-line);
+  background: var(--paper);
+  color: var(--ink-2);
+  border: 1px solid var(--line-strong);
   font: 600 11px/1 var(--body);
   box-shadow: 0 0 0 2px var(--surface);
 }
@@ -661,8 +661,8 @@ body:has(.band) .header-rails { display: block; }
 .hero h1,
 .band-title {
   margin: 14px 0 0;
-  color: var(--accent);
-  font: 300 clamp(40px, 6vw, 64px)/1.04 var(--display);
+  color: var(--ink);
+  font: 300 clamp(40px, 6vw, 64px)/1.06 var(--display);
   letter-spacing: -.025em;
 }
 .band-title { font-size: clamp(36px, 5vw, 52px); }
@@ -678,7 +678,7 @@ body:has(.band) .header-rails { display: block; }
 .hero-inner.center .actions,
 .band-inner.center .actions { justify-content: center; }
 :lang(zh) .hero h1,
-:lang(zh) .band-title { font-weight: 500; letter-spacing: .02em; line-height: 1.25; }
+:lang(zh) .band-title { font-weight: 400; letter-spacing: .02em; line-height: 1.25; }
 @media (max-width: 600px) {
   .hero { --grid-size: 16px; }
   .hero-inner { padding: 64px var(--pad) 52px; }
@@ -837,9 +837,9 @@ body:has(.band) .header-rails { display: block; }
 }
 .section-head h2 { margin: 0; font: 400 34px/1.15 var(--display); letter-spacing: -.015em; }
 :lang(zh) .section-head h2 { font-weight: 500; letter-spacing: .02em; font-size: 30px; }
-.section-head p:not(.eyebrow) { margin: 0; color: var(--muted); max-width: 460px; }
+.section-head p:not(.eyebrow) { margin: 0; color: var(--ink-2); max-width: 520px; line-height: 1.6; }
 /* Title and lead stacked in one wrapper; as siblings they sit side by side. */
-.section-head > div > :is(h2, h3) + p { margin-top: 10px; }
+.section-head > div > :is(h2, h3) + p { margin-top: 14px; }
 .section-head .actions { flex-shrink: 0; }
 @media (max-width: 880px) {
   .section-head { display: block; }
@@ -858,11 +858,11 @@ body:has(.band) .header-rails { display: block; }
 .cta h2 {
   margin: 14px auto 0;
   max-width: 18em;
-  color: var(--accent);
+  color: var(--ink);
   font: 300 clamp(32px, 4.4vw, 48px)/1.1 var(--display);
   letter-spacing: -.02em;
 }
-:lang(zh) .cta h2 { font-weight: 500; letter-spacing: .02em; line-height: 1.35; }
+:lang(zh) .cta h2 { font-weight: 400; letter-spacing: .02em; line-height: 1.35; }
 .cta p:not(.eyebrow) { margin: 16px auto 0; max-width: 560px; color: var(--ink-2); }
 .cta .actions { justify-content: center; margin-top: 30px; }
 @media (max-width: 600px) {
@@ -875,9 +875,8 @@ body:has(.band) .header-rails { display: block; }
 
 .callout {
   margin: 1.8em 0;
-  padding: 16px 20px;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
+  padding: 16px 20px 18px;
+  border: 1px solid var(--accent-line);
   background: var(--accent-soft);
   font-size: 16px;
 }
@@ -889,9 +888,9 @@ body:has(.band) .header-rails { display: block; }
   text-transform: uppercase;
 }
 .callout > :last-child { margin-bottom: 0; }
-.callout-warning { border-left-color: var(--warn); background: var(--warn-soft); }
+.callout-warning { border-color: var(--line-strong); background: var(--warn-soft); }
 .callout-warning .callout-title { color: var(--warn); }
-.callout-caution { border-left-color: var(--err); background: var(--err-soft); }
+.callout-caution { border-color: var(--line-strong); background: var(--err-soft); }
 .callout-caution .callout-title { color: var(--err); }
 
 /* ── Code blocks: dark in both themes, with the hard offset band ──────── */
@@ -1176,7 +1175,7 @@ body:has(.band) .header-rails { display: block; }
 .prose ul, .prose ol { padding-left: 1.4em; }
 .prose li { margin: .3em 0; padding-left: .2em; }
 .prose li::marker { color: var(--muted); font-family: var(--mono); font-size: .85em; }
-.prose ul > li::marker { content: "▪  "; color: var(--accent); }
+.prose ul > li::marker { content: "▪  "; color: var(--muted); }
 .prose li > ul, .prose li > ol { margin: .3em 0; }
 
 .prose hr {
@@ -1190,7 +1189,7 @@ body:has(.band) .header-rails { display: block; }
 .prose blockquote {
   margin: 1.8em 0;
   padding: .1em 0 .1em 22px;
-  border-left: 2px solid var(--accent);
+  border-left: 1px solid var(--line-strong);
   color: var(--ink-2);
   font: italic 300 22px/1.5 var(--display);
 }
@@ -1315,9 +1314,9 @@ kbd.key {
   justify-content: space-between;
   min-height: 40px;
   padding: 0 8px;
-  color: var(--accent);
+  color: var(--muted);
   font: 12px/1.4 var(--mono);
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   text-transform: uppercase;
   cursor: pointer;
   list-style: none;
@@ -1346,18 +1345,22 @@ kbd.key {
 }
 
 .docs-main { min-width: 0; padding: 48px var(--pad) 72px; }
-.docs-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.docs-head { margin-bottom: 28px; }
+/* Breadcrumbs and the edit button share the top row, so the title and lead
+   get the full article measure. */
+.docs-head-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; min-height: 40px; }
+.docs-head-bar .button { flex-shrink: 0; }
 .breadcrumbs { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; }
 .breadcrumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-strong); }
 .breadcrumbs a { color: inherit; text-decoration: none; }
 .breadcrumbs a:hover { color: var(--accent); }
 .docs-title {
-  margin: 12px 0 0;
-  color: var(--accent);
+  margin: 14px 0 0;
+  color: var(--ink);
   font: 300 clamp(34px, 4.6vw, 48px)/1.08 var(--display);
   letter-spacing: -.02em;
 }
-:lang(zh) .docs-title { font-weight: 500; letter-spacing: .02em; line-height: 1.3; }
+:lang(zh) .docs-title { font-weight: 400; letter-spacing: .02em; line-height: 1.3; }
 .docs-main .lead { margin: 16px 0 0; max-width: 64ch; }
 .docs-footer { margin-top: 56px; }
 .docs-updated { margin: 20px 0 0; color: var(--muted); font: 12px/1.6 var(--mono); }
@@ -1413,7 +1416,6 @@ kbd.key {
   .header-inner:has(.search) .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .header-inner:has(.search) .search { flex: 1; width: auto; }
   .docs-main { padding: 32px var(--pad) 56px; }
-  .docs-head { flex-direction: column; gap: 12px; }
 }
 @media print {
   .docs-nav, .docs-toc { display: none !important; }
@@ -1676,15 +1678,15 @@ pre.mermaid {
 
     <article class="docs-main">
       <header class="docs-head">
-        <div>
+        <div class="docs-head-bar">
           <ol class="breadcrumbs eyebrow" aria-label="Breadcrumb">
             <li><a href="{{CRUMB_1_URL}}">{{CRUMB_1}}</a></li>
             <li><a href="{{CRUMB_2_URL}}">{{CRUMB_2}}</a></li>
           </ol>
-          <h1 class="docs-title">{{PAGE_TITLE}}</h1>
-          <p class="lead">{{LEAD}}</p>
+          <a class="button" href="{{EDIT_URL}}">Edit this page</a>
         </div>
-        <a class="button" href="{{EDIT_URL}}">Edit this page</a>
+        <h1 class="docs-title">{{PAGE_TITLE}}</h1>
+        <p class="lead">{{LEAD}}</p>
       </header>
 
       <details class="toc toc-inline">

@@ -15,7 +15,7 @@ Mistakes that break the Gridline look, most of them seen in real fixes. Each lin
 
 ## Colour and depth
 
-9. **A second accent.** Green buttons, purple badges, gradient headings. One blue; status colours only on state labels.
+9. **A second accent, or too much of the first.** Green buttons, purple badges, gradient headings; blue titles, prices or bullets beside a blue primary button. One blue, used for action, location and links; status colours only on state labels.
 10. **Blurred shadows, glows, glassmorphism.** Use the hard offset in the band colour, or a border.
 11. **Rounded corners.** `--radius` is 0; only avatars and status dots are round.
 12. **Hard-coded hex in a component.** Use tokens so dark mode and a custom accent follow.
@@ -23,7 +23,7 @@ Mistakes that break the Gridline look, most of them seen in real fixes. Each lin
 
 ## Type
 
-14. **Bold display headings.** Latin display is 300/400; CJK 500; nothing above 600.
+14. **Bold display headings.** Latin display is 300/400; CJK titles 400, section heads 500; nothing above 600.
 15. **Synthetic CJK italic.** Chinese emphasis uses emphasis dots; captions and quotes stay upright.
 16. **Latin-only mono for Chinese labels.** Mono labels need CJK fallbacks (and in print every stack does).
 17. **Spaced Chinese dates in mono** (`2026 年 11 月 10 日`). Write `2026年11月10日`.
