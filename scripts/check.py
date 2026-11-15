@@ -82,7 +82,7 @@ def split_shadows(value: str) -> list[str]:
 # unicode-range; any other remote stylesheet is a departure.
 FONT_SOURCES = (
     "https://fonts.googleapis.com/css2?",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-tc@",
+    "https://cdn.jsdelivr.net/gh/rubinette/gridline-style@",
 )
 
 

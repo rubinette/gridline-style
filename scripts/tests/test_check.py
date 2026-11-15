@@ -60,7 +60,7 @@ class StyleWarningTest(TestCase):
     def test_only_the_sliced_font_block_may_link_out(self) -> None:
         head = '<!doctype html><html lang="en"><head><title>t</title>{}</head><body></body></html>'
         fonts = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilex&amp;display=swap">'
-                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ibm/plex-sans-tc@1.1.1/fonts/split/woff2/hinted/IBMPlexSansTC-Regular.css">')
+                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rubinette/gridline-style@0123abc/assets/fonts/ibm-plex-sans-tc/plex-sans-tc.css">')
         other = '<link rel="stylesheet" href="https://example.com/fonts.css">'
         with TemporaryDirectory() as tmp:
             ok = write(Path(tmp), "ok.html", head.format(fonts))
