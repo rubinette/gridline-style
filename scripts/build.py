@@ -144,7 +144,19 @@ def fill(name: str, lang: str, template: str, content: dict, shared: dict) -> st
             return read(path).strip()
         return v
 
-    return PLACEHOLDER.sub(lambda m: value(m.group(1)), template)
+    return mark_current(name, lang, PLACEHOLDER.sub(lambda m: value(m.group(1)), template))
+
+
+# The header link that a filled page belongs under ("you are here"): a post
+# sits in the blog section, every other surface links to itself.
+SECTION_OF = {"post": "blog-index"}
+NAV_BLOCK = re.compile(r'(<nav class="nav-links"[^>]*>)(.*?)(</nav>)', re.S)
+
+
+def mark_current(name: str, lang: str, page: str) -> str:
+    target = f'<a href="{SECTION_OF.get(name, name)}-{lang}.html">'
+    current = target[:-1] + ' aria-current="page">'
+    return NAV_BLOCK.sub(lambda m: m.group(1) + m.group(2).replace(target, current, 1) + m.group(3), page, count=1)
 
 
 def outputs() -> dict[Path, str]:

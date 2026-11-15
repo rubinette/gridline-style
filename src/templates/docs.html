@@ -18,6 +18,14 @@
       <span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span>
       <span class="brand-name">{{PRODUCT_NAME}}</span>
     </a>
+    <!-- The site's main navigation stays on docs pages too; mark Docs with
+         aria-current="page". Below 820px it folds behind the Menu button. -->
+    <nav class="nav-links" id="site-nav" aria-label="[[ui:main_nav]]">
+      <a href="{{NAV_1_URL}}">{{NAV_1_LABEL}}</a>
+      <a href="{{NAV_2_URL}}">{{NAV_2_LABEL}}</a>
+      <a href="{{NAV_3_URL}}">{{NAV_3_LABEL}}</a>
+      <a href="{{NAV_4_URL}}">{{NAV_4_LABEL}}</a>
+    </nav>
     <!-- Wire the field to your search (an action URL, or a script). -->
     <form class="search" role="search" action="{{SEARCH_URL}}">
       <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor"/><path d="m11 11 4 4" stroke="currentColor"/></svg>
@@ -27,6 +35,7 @@
     <div class="header-actions">
       <!--@part:theme-toggle-->
       <a class="button primary header-button" href="{{HEADER_CTA_URL}}">{{HEADER_CTA_LABEL}}</a>
+      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>[[ui:menu]]</button>
     </div>
   </div>
 </header>

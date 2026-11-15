@@ -38,3 +38,14 @@ Mistakes that break the Gridline look, most of them seen in real fixes. Each lin
 23. **Invented numbers, logos, quotes.** Use `[DATA NEEDED: …]` and report the gap.
 24. **Hiding content on small screens.** Move it (pin board under the feed, rail into chips), do not drop it.
 25. **Placeholders or OPTIONAL blocks left in a finished page.** Fill or delete; `scripts/check.py` must pass without `--allow-placeholders`.
+
+## Usability
+
+26. **A page without the main navigation** (docs headers, landing variants). Keep the header nav on every page; fold it behind Menu on small screens.
+27. **No "you are here".** Mark the current section with `aria-current="page"` in the header and the current item in any rail.
+28. **Mixed labels in one column** ("Featured" next to "Engineering"). One kind of badge per column; flag status elsewhere.
+29. **"Previous" / "Next" between dated posts.** Say "Older post" / "Newer post".
+30. **Eyebrow repeating the title.** Drop it, or use it for information the title lacks.
+31. **Tiny utility links** (footer legal links, author names at line height). At least 24px tall.
+32. **Skipped heading levels** (an `h3` right under the `h1`) and scroll boxes the keyboard cannot reach.
+

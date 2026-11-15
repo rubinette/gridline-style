@@ -58,6 +58,7 @@
       if (!btn || !code) return;
       const label = btn.textContent;
       btn.hidden = false;
+      btn.setAttribute("aria-live", "polite"); // screen readers hear "Copied
       btn.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(code.innerText.replace(/\n$/, ""));
@@ -66,6 +67,18 @@
         } catch (e) {}
       });
     });
+  }
+
+  // Wide tables and diagrams scroll sideways; a scroll box that overflows
+  // must be reachable by keyboard (WCAG 2.1.1), so give it a tab stop.
+  const scrollers = [...doc.querySelectorAll(".table-wrap, .prose .mermaid")];
+  if (scrollers.length) {
+    const sync = () => scrollers.forEach((el) => {
+      if (el.scrollWidth > el.clientWidth + 1) el.setAttribute("tabindex", "0");
+      else if (el.getAttribute("tabindex") === "0") el.removeAttribute("tabindex");
+    });
+    sync();
+    addEventListener("resize", sync, { passive: true });
   }
 
   // Highlight the current section in an on-this-page rail.

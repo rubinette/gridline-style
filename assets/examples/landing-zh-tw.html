@@ -555,7 +555,13 @@ body:has(.band) .header-rails { display: block; }
   border: 1px solid transparent;
 }
 .nav-links a:hover { background: var(--hover); color: var(--ink); }
-.nav-links a[aria-current="page"] { color: var(--accent); }
+/* "You are here": colour plus an underline, so it does not rely on colour alone (WCAG 1.4.1). */
+.nav-links a[aria-current="page"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
 
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .lang-switch { display: flex; gap: 8px; }
@@ -635,8 +641,10 @@ body:has(.band) .header-rails { display: block; }
   .header-inner { padding-inline: 12px; gap: 12px; }
   .header-button { display: none; }
 }
+/* Narrow screens keep the mark visible and the name for screen readers, so
+   the home link always has an accessible name. */
 @media (max-width: 360px) {
-  .brand-name { display: none; }
+  .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 
 /* ── Hero: a title band on the construction grid ───────────────────────
@@ -1060,8 +1068,8 @@ body:has(.band) .header-rails { display: block; }
 .footer-brand p { margin: 14px 0 0; max-width: 320px; color: var(--muted); font-size: 14px; }
 .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 28px; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
-.footer-col li + li { margin-top: 6px; }
-.footer-col a { color: var(--ink-2); font-size: 14px; text-decoration: none; }
+.footer-col li + li { margin-top: 2px; }
+.footer-col a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-2); font-size: 14px; text-decoration: none; }
 .footer-col a:hover { color: var(--accent); }
 .footer-bottom { border-top: 1px solid var(--line); }
 .footer-bottom-inner {
@@ -1075,7 +1083,7 @@ body:has(.band) .header-rails { display: block; }
 .footer-bottom-inner p { margin: 0; }
 .footer-bottom a { color: inherit; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
-.footer-links a { text-decoration: none; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 24px; text-decoration: none; }  /* WCAG 2.5.8 target size */
 .footer-links a:hover { color: var(--accent); }
 @media (max-width: 880px) { .footer-top { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 600px) { .footer-bottom-inner { flex-direction: column; } }
@@ -1115,12 +1123,12 @@ body:has(.band) .header-rails { display: block; }
 /* Value strip: three short claims in rail-divided cells. */
 .value-strip { background: var(--surface); }
 .value { padding: 22px 24px 24px; }
-.value h3, .feature h3 {
+.value h2, .feature h3 {
   margin: 0 0 6px;
   font: 400 18px/1.35 var(--display);
   letter-spacing: -.005em;
 }
-:lang(zh) .value h3, :lang(zh) .feature h3 { font-weight: 500; letter-spacing: .02em; }
+:lang(zh) .value h2, :lang(zh) .feature h3 { font-weight: 500; letter-spacing: .02em; }
 .value p, .feature p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
 
 /* Product panel: an abstract, schematic window. Never imitate a real product UI. */
@@ -1330,7 +1338,7 @@ body:has(.band) .header-rails { display: block; }
     </a>
     <!-- Mark the current section's link with aria-current="page". -->
     <nav class="nav-links" id="site-nav" aria-label="主選單">
-      <a href="landing-zh-tw.html">產品</a>
+      <a href="landing-zh-tw.html" aria-current="page">產品</a>
       <a href="docs-zh-tw.html">文件</a>
       <a href="changelog-zh-tw.html">更新紀錄</a>
       <a href="blog-index-zh-tw.html">部落格</a>
@@ -1367,9 +1375,9 @@ body:has(.band) .header-rails { display: block; }
 
   <div class="divider plain" aria-hidden="true"><div class="frame"><i class="junction"></i></div></div>
   <section class="frame cells value-strip" aria-label="Orbitline 的設計重點">
-    <div class="value"><h3>輸入優先</h3><p>每個畫格都先處理按鍵，再把剩下的時間交給背景工作。</p></div>
-    <div class="value"><h3>預設共享</h3><p>每個緩衝區都是 CRDT，協作者不必透過中央伺服器就能合併修改。</p></div>
-    <div class="value"><h3>本機優先</h3><p>檔案留在你的電腦裡；邀請別人時，工作階段才以點對點同步。</p></div>
+    <div class="value"><h2>輸入優先</h2><p>每個畫格都先處理按鍵，再把剩下的時間交給背景工作。</p></div>
+    <div class="value"><h2>預設共享</h2><p>每個緩衝區都是 CRDT，協作者不必透過中央伺服器就能合併修改。</p></div>
+    <div class="value"><h2>本機優先</h2><p>檔案留在你的電腦裡；邀請別人時，工作階段才以點對點同步。</p></div>
   </section>
   <div class="divider plain" aria-hidden="true"><div class="frame"><i class="junction"></i></div></div>
 
@@ -1714,6 +1722,7 @@ body:has(.band) .header-rails { display: block; }
       if (!btn || !code) return;
       const label = btn.textContent;
       btn.hidden = false;
+      btn.setAttribute("aria-live", "polite"); // screen readers hear "Copied
       btn.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(code.innerText.replace(/\n$/, ""));
@@ -1722,6 +1731,18 @@ body:has(.band) .header-rails { display: block; }
         } catch (e) {}
       });
     });
+  }
+
+  // Wide tables and diagrams scroll sideways; a scroll box that overflows
+  // must be reachable by keyboard (WCAG 2.1.1), so give it a tab stop.
+  const scrollers = [...doc.querySelectorAll(".table-wrap, .prose .mermaid")];
+  if (scrollers.length) {
+    const sync = () => scrollers.forEach((el) => {
+      if (el.scrollWidth > el.clientWidth + 1) el.setAttribute("tabindex", "0");
+      else if (el.getAttribute("tabindex") === "0") el.removeAttribute("tabindex");
+    });
+    sync();
+    addEventListener("resize", sync, { passive: true });
   }
 
   // Highlight the current section in an on-this-page rail.

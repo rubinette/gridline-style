@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Browser check for finished Gridline pages: every file × width × colour scheme.
-// Reports horizontal overflow, controls under 40px tall, console errors and
-// broken images; optionally saves full-page screenshots for the visual pass.
+// Reports horizontal overflow, controls under 40px tall, link targets under
+// 24px, console errors and broken images; optionally saves full-page
+// screenshots for the visual pass.
 //
 //   npm install --prefix <skill>/scripts        # once: playwright-core
 //   node <skill>/scripts/layout.mjs page.html [more.html] [--widths 1280,375,320]
@@ -84,13 +85,21 @@ for (const file of files) {
           .filter((el) => el.getBoundingClientRect().height < 39.5)
           .slice(0, 5)
           .map((el) => `${label(el)} ${Math.round(el.getBoundingClientRect().height)}px`);
+        // WCAG 2.5.8: a link set apart from running text (footer, byline,
+        // rails) needs a 24px target. Links inside a sentence are exempt.
+        const targets = [...document.querySelectorAll("a:not(.button, .skip-link)")]
+          .filter((el) => el.offsetParent && !el.closest("[hidden], .sr-only") && getComputedStyle(el).display !== "inline")
+          .filter((el) => { const b = el.getBoundingClientRect(); return b.width && b.height < 23.5; })
+          .slice(0, 5)
+          .map((el) => `${label(el)} "${el.textContent.trim().slice(0, 24)}" ${Math.round(el.getBoundingClientRect().height)}px`);
         const images = [...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.getAttribute("src"));
-        return { overflow: document.documentElement.scrollWidth - vw, wide, small, images };
+        return { overflow: document.documentElement.scrollWidth - vw, wide, small, targets, images };
       });
       const issues = [];
       if (report.overflow > 0) issues.push(`horizontal scroll ${report.overflow}px`);
       if (report.wide.length) issues.push(`outside viewport: ${report.wide.join(", ")}`);
       if (report.small.length) issues.push(`controls under 40px: ${report.small.join(", ")}`);
+      if (report.targets.length) issues.push(`link targets under 24px: ${report.targets.join(", ")}`);
       if (report.images.length) issues.push(`broken images: ${report.images.join(", ")}`);
       if (errors.length) issues.push(`console: ${errors.slice(0, 3).join(" | ")}`);
       const tag = `${basename(file)} @ ${width} ${scheme}`;

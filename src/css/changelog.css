@@ -72,7 +72,7 @@
   background: var(--surface);
   font: 13px/1.4 var(--mono);
 }
-.release-head .version { display: flex; align-items: center; gap: 10px; color: var(--ink); font-size: 15px; text-decoration: none; }
+.release-head .version { display: flex; align-items: center; min-height: 28px; gap: 10px; color: var(--ink); font-size: 15px; text-decoration: none; }
 .release-head .version:hover { color: var(--accent); }
 .release-head time { color: var(--muted); }
 .release-body { padding: 20px 20px 4px; }

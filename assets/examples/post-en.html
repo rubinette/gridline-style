@@ -555,7 +555,13 @@ body:has(.band) .header-rails { display: block; }
   border: 1px solid transparent;
 }
 .nav-links a:hover { background: var(--hover); color: var(--ink); }
-.nav-links a[aria-current="page"] { color: var(--accent); }
+/* "You are here": colour plus an underline, so it does not rely on colour alone (WCAG 1.4.1). */
+.nav-links a[aria-current="page"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
 
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .lang-switch { display: flex; gap: 8px; }
@@ -635,8 +641,10 @@ body:has(.band) .header-rails { display: block; }
   .header-inner { padding-inline: 12px; gap: 12px; }
   .header-button { display: none; }
 }
+/* Narrow screens keep the mark visible and the name for screen readers, so
+   the home link always has an accessible name. */
 @media (max-width: 360px) {
-  .brand-name { display: none; }
+  .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 
 /* ── Hero: a title band on the construction grid ───────────────────────
@@ -1060,8 +1068,8 @@ body:has(.band) .header-rails { display: block; }
 .footer-brand p { margin: 14px 0 0; max-width: 320px; color: var(--muted); font-size: 14px; }
 .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 28px; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
-.footer-col li + li { margin-top: 6px; }
-.footer-col a { color: var(--ink-2); font-size: 14px; text-decoration: none; }
+.footer-col li + li { margin-top: 2px; }
+.footer-col a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-2); font-size: 14px; text-decoration: none; }
 .footer-col a:hover { color: var(--accent); }
 .footer-bottom { border-top: 1px solid var(--line); }
 .footer-bottom-inner {
@@ -1075,7 +1083,7 @@ body:has(.band) .header-rails { display: block; }
 .footer-bottom-inner p { margin: 0; }
 .footer-bottom a { color: inherit; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
-.footer-links a { text-decoration: none; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 24px; text-decoration: none; }  /* WCAG 2.5.8 target size */
 .footer-links a:hover { color: var(--accent); }
 @media (max-width: 880px) { .footer-top { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 600px) { .footer-bottom-inner { flex-direction: column; } }
@@ -1433,6 +1441,10 @@ kbd.key {
 .author { display: flex; align-items: center; gap: 10px; }
 .author-text { display: flex; flex-direction: column; line-height: 1.3; font-size: 14px; }
 .author-text a {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;   /* WCAG 2.5.8 target size */
   color: var(--ink);
   text-decoration: underline;
   text-decoration-color: var(--accent-line);
@@ -1714,7 +1726,7 @@ pre.mermaid {
       <a href="landing-en.html">Product</a>
       <a href="docs-en.html">Docs</a>
       <a href="changelog-en.html">Changelog</a>
-      <a href="blog-index-en.html">Blog</a>
+      <a href="blog-index-en.html" aria-current="page">Blog</a>
     </nav>
     <div class="header-actions">
       <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" hidden>
@@ -1925,9 +1937,11 @@ pre.mermaid {
             <li><a href="blog-index-en.html">#data structures</a></li>
             <li><a href="blog-index-en.html">#rust</a></li>
           </ul>
-          <nav class="post-nav" aria-label="Previous / Next">
-            <a class="prev" href="blog-index-en.html"><span class="nav-label">← Previous</span><span class="post-nav-title">A render loop that never blocks input</span></a>
-            <a class="next" href="changelog-en.html"><span class="nav-label">Next →</span><span class="post-nav-title">Orbitline 0.9: shared sessions for everyone</span></a>
+          <!-- Say which way each link goes in time: the older post on the left,
+               the newer on the right. -->
+          <nav class="post-nav" aria-label="Older post / Newer post">
+            <a class="prev" href="blog-index-en.html" rel="prev"><span class="nav-label">← Older post</span><span class="post-nav-title">A render loop that never blocks input</span></a>
+            <a class="next" href="blog-index-en.html" rel="next"><span class="nav-label">Newer post →</span><span class="post-nav-title">Command palette tips for shared sessions</span></a>
           </nav>
         </footer>
       </div>
@@ -2077,6 +2091,7 @@ pre.mermaid {
       if (!btn || !code) return;
       const label = btn.textContent;
       btn.hidden = false;
+      btn.setAttribute("aria-live", "polite"); // screen readers hear "Copied
       btn.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(code.innerText.replace(/\n$/, ""));
@@ -2085,6 +2100,18 @@ pre.mermaid {
         } catch (e) {}
       });
     });
+  }
+
+  // Wide tables and diagrams scroll sideways; a scroll box that overflows
+  // must be reachable by keyboard (WCAG 2.1.1), so give it a tab stop.
+  const scrollers = [...doc.querySelectorAll(".table-wrap, .prose .mermaid")];
+  if (scrollers.length) {
+    const sync = () => scrollers.forEach((el) => {
+      if (el.scrollWidth > el.clientWidth + 1) el.setAttribute("tabindex", "0");
+      else if (el.getAttribute("tabindex") === "0") el.removeAttribute("tabindex");
+    });
+    sync();
+    addEventListener("resize", sync, { passive: true });
   }
 
   // Highlight the current section in an on-this-page rail.

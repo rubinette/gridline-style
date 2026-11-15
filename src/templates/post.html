@@ -56,9 +56,11 @@
             <li><a href="{{TAG_2_URL}}">#{{TAG_2}}</a></li>
             <li><a href="{{TAG_3_URL}}">#{{TAG_3}}</a></li>
           </ul>
-          <nav class="post-nav" aria-label="[[ui:previous]] / [[ui:next]]">
-            <a class="prev" href="{{PREV_URL}}"><span class="nav-label">← [[ui:previous]]</span><span class="post-nav-title">{{PREV_TITLE}}</span></a>
-            <a class="next" href="{{NEXT_URL}}"><span class="nav-label">[[ui:next]] →</span><span class="post-nav-title">{{NEXT_TITLE}}</span></a>
+          <!-- Say which way each link goes in time: the older post on the left,
+               the newer on the right. -->
+          <nav class="post-nav" aria-label="[[ui:older_post]] / [[ui:newer_post]]">
+            <a class="prev" href="{{PREV_URL}}" rel="prev"><span class="nav-label">← [[ui:older_post]]</span><span class="post-nav-title">{{PREV_TITLE}}</span></a>
+            <a class="next" href="{{NEXT_URL}}" rel="next"><span class="nav-label">[[ui:newer_post]] →</span><span class="post-nav-title">{{NEXT_TITLE}}</span></a>
           </nav>
         </footer>
       </div>

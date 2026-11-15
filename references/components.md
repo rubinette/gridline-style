@@ -62,7 +62,7 @@ Decorative construction (`.junction`, `.band-rails`, `.header-rails`, `.divider`
 </header>
 ```
 
-Docs swap the nav for a search field: `<form class="search" role="search">` with an icon `<svg>`, `<input type="search" aria-label="…">` and `<kbd>/</kbd>`.
+Docs keep the main nav (Docs marked current) and add a search field after it: `<form class="search" role="search">` with an icon `<svg>`, `<input type="search" aria-label="…">` and `<kbd>/</kbd>`.
 
 Announcement strip under the header: `<div class="announce"><div class="frame"><strong>New:</strong> text <a href="#">Link →</a></div></div>`.
 
@@ -110,7 +110,7 @@ Closing CTA: `<section class="cta grid-bg"><div class="frame cta-inner"><p class
 
 ```html
 <section class="frame cells">                      <!-- .two, .four; .no-nodes drops the diamonds -->
-  <div class="value"><h3>Title</h3><p>Text</p></div> …
+  <div class="value"><h2>Title</h2><p>Text</p></div> …
 </section>
 
 <section class="frame card-grid">
@@ -170,7 +170,7 @@ Image runs edge to edge inside a hairline frame with a 2px offset; the caption s
 <nav class="toc toc-aside" aria-label="On this page"><p class="nav-label">On this page</p><ul><li><a href="#a">…</a><ul>…</ul></li></ul></nav>
 <div class="links-box"><p class="nav-label">See also</p><ul><li><a href="#">Link <span aria-hidden="true">→</span></a></li></ul></div>
 <ul class="tag-list"><li><a href="#">#tag</a></li></ul>
-<nav class="post-nav"><a class="prev" href="#"><span class="nav-label">← Previous</span><span class="post-nav-title">…</span></a><a class="next" href="#">…</a></nav>
+<nav class="post-nav"><a class="prev" href="#"><span class="nav-label">← Older post</span><span class="post-nav-title">…</span></a><a class="next" href="#">…</a></nav>
 <nav class="pagination"><span class="page-of">Page 1 of 2</span><a class="button" href="#">Older →</a></nav>
 ```
 
