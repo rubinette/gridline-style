@@ -21,13 +21,16 @@
   --mono: Lilex, "IBM Plex Mono", SFMono-Regular, "Cascadia Code", Consolas, monospace;
   --code-font: Lilex, "IBM Plex Mono", SFMono-Regular, "Cascadia Code", Consolas, monospace;
 }
-/* Any stack that may render Chinese carries CJK fallbacks, including mono:
-   WeasyPrint draws missing glyph boxes from a pure Latin mono stack. */
+/* Same pairing as the screen (tokens.css): Noto Serif TC titles, IBM Plex
+   Sans TC text, Lilex for Latin and digits in mono with Plex Sans TC for its
+   Chinese. Every stack that may render Chinese carries CJK fallbacks:
+   WeasyPrint draws missing glyph boxes from a pure Latin stack. PDFs use
+   installed fonts only, so install these faces where you render. */
 :root:lang(zh) {
   --display: "IBM Plex Serif", "Noto Serif TC", "Songti TC", PMingLiU, serif;
-  --body: "IBM Plex Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --mono: "Heiti TC", "Noto Sans CJK TC", "Source Han Sans TW", "PingFang TC", "Microsoft JhengHei", SFMono-Regular, Consolas, monospace;
-  --code-font: Lilex, "IBM Plex Mono", SFMono-Regular, Consolas, "Heiti TC", "Noto Sans CJK TC", "PingFang TC", monospace;
+  --body: "IBM Plex Sans", "IBM Plex Sans TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --mono: Lilex, "IBM Plex Mono", SFMono-Regular, Consolas, "IBM Plex Sans TC", "Noto Sans TC", "Noto Sans CJK TC", "Heiti TC", "PingFang TC", "Microsoft JhengHei", monospace;
+  --code-font: Lilex, "IBM Plex Mono", SFMono-Regular, Consolas, "IBM Plex Sans TC", "Noto Sans TC", "Noto Sans CJK TC", "Heiti TC", "PingFang TC", monospace;
 }
 
 * { box-sizing: border-box; }

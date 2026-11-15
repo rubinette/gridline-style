@@ -5,7 +5,7 @@ Use this when applying Gridline to a working web application (workspace, console
 ## Bring the system in
 
 - Copy `assets/css/gridline.css` (every screen module, in cascade order) or just the modules you need from `src/css/` (`tokens`, `base`, `construction`, `components`, plus `prose` for long text). Keep the custom property names so later updates drop in.
-- Under a strict CSP (`style-src 'self'`, `script-src 'self'`) keep all CSS in the stylesheet and all JS in files; `assets/js/boot.js` and `site.js` work as external files. Do not link font files; the stacks degrade.
+- Under a strict CSP (`style-src 'self'`, `script-src 'self'`) keep all CSS in the stylesheet and all JS in files; `assets/js/boot.js` and `site.js` work as external files. Fonts: self-host the sliced files from `src/parts/fonts.<lang>.html` (keep their `unicode-range` rules) or load none; the stacks degrade.
 - Everything in `design.md` applies: one accent, `--radius: 0`, hard offsets only, the CJK text rules, 40px controls, 2px focus outlines, light and dark.
 
 ## Construction grid: structure sits on grid lines

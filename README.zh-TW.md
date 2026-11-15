@@ -68,4 +68,4 @@ scripts/            build.py、check.py、layout.mjs、render.py、brand.mjs、t
 
 ## 授權
 
-MIT。頁面中的 Mermaid 圖表由 [Pele](https://github.com/obsidianmd/pele)（MIT，© kepano）在瀏覽器中渲染，預設從 jsDelivr 載入；自行部署時請保留其授權檔。字型只列出字型名稱（IBM Plex、Lilex 等開源字型優先），不嵌入或連結字型檔。
+MIT。頁面中的 Mermaid 圖表由 [Pele](https://github.com/obsidianmd/pele)（MIT，© kepano）在瀏覽器中渲染，預設從 jsDelivr 載入；自行部署時請保留其授權檔。字型皆為 OFL 開源字型（IBM Plex Serif／Sans、Lilex；繁體中文另有 Noto Serif TC 與 IBM Plex Sans TC）。每頁在 `<head>` 有一段可刪除的字型區塊，以 `unicode-range` 分片載入，只下載頁面用到的字（Google Fonts，以及 jsDelivr 上 IBM 官方分片的 Plex Sans TC）；刪掉這段，字體堆疊會退回系統字型。

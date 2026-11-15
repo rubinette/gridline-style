@@ -19,7 +19,8 @@ Outputs (generated, committed):
 A template source starts with a directive comment:
   <!-- gridline css="tokens base construction components" -->
 and may contain:
-  <!--@part:NAME-->  replaced by src/parts/NAME.html (parts may include parts)
+  <!--@part:NAME-->  replaced by src/parts/NAME.<lang>.html when it exists, else
+                     src/parts/NAME.html (parts may include parts)
   /*@css*/           replaced by the listed CSS modules
   /*@js:NAME*/       replaced by src/js/NAME.js
   [[lang]]           replaced by the language's html lang value
@@ -86,7 +87,9 @@ def render_template(name: str, source: str, lang: str, strings: dict) -> str:
     body = source[match.end():]
 
     def part(m: re.Match) -> str:
-        path = SRC / "parts" / f"{m.group(1)}.html"
+        path = SRC / "parts" / f"{m.group(1)}.{lang}.html"
+        if not path.exists():
+            path = SRC / "parts" / f"{m.group(1)}.html"
         if not path.exists():
             raise BuildError(f"{name}: unknown part {m.group(1)}")
         return read(path).rstrip("\n")

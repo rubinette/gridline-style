@@ -9,7 +9,7 @@ One page to scan before filling a template or nudging a detail. Full spec: `refe
 3. Status colours (ok / warn / err) only on `.state` labels and warning / caution callouts.
 4. Square corners (`--radius: 0`); only avatars and status dots are round.
 5. Depth is a hard offset in the band colour (`--shadow-offset`, figures `2px 2px 0`), never a blur.
-6. Serif display in ink (Latin 300/400, CJK titles 400 and section heads 500), sans body, mono for every label, button and caption; emphasis 600 max.
+6. Serif display in ink (Latin 300/400, CJK titles 400 and section heads 500), sans body, mono for every label, button and caption; emphasis 600 max. Chinese: Noto Serif TC titles, IBM Plex Sans TC text and interface (Noto Sans TC fallback), Lilex for Latin in mono with Chinese falling back to Plex Sans TC; web fonts sliced by `unicode-range`, never a whole CJK file.
 7. Every line encodes structure: rails, band edges, column dividers; a diamond marks each crossing, once, centred.
 8. Grids are anchored to rails and frame heroes and bands, never reading text.
 9. 40px minimum controls (24px for links outside running text), 2px accent focus outline, works without JavaScript.

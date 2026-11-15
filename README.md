@@ -68,4 +68,4 @@ A template source starts with `<!-- gridline css="…" -->`, naming the CSS modu
 
 ## License
 
-MIT. Mermaid diagrams on the pages are rendered in the browser by [Pele](https://github.com/obsidianmd/pele) (MIT, © kepano), loaded from jsDelivr by default; keep its licence file if you host it yourself. Fonts are named only (open-source faces such as IBM Plex and Lilex first); no font files are embedded or linked.
+MIT. Mermaid diagrams on the pages are rendered in the browser by [Pele](https://github.com/obsidianmd/pele) (MIT, © kepano), loaded from jsDelivr by default; keep its licence file if you host it yourself. Fonts are OFL faces (IBM Plex Serif and Sans, Lilex; for Traditional Chinese Noto Serif TC and IBM Plex Sans TC). Each page links them in an optional head block, sliced by `unicode-range` so only the characters in use download (Google Fonts, and IBM's split files of Plex Sans TC from jsDelivr); delete the block and the stacks fall back to platform fonts.

@@ -23,7 +23,18 @@ Three habits keep it honest:
 
 ## 3. Type
 
-- Stacks name the OFL faces IBM Plex Serif, IBM Plex Sans and Lilex first, then platform fonts. Do not link or embed font files; the stacks must degrade cleanly.
+- Stacks name the OFL faces IBM Plex Serif, IBM Plex Sans and Lilex first, then platform fonts. The stacks must degrade cleanly: a page reads correctly with none of the faces loaded.
+- Traditional Chinese pairs each Latin role with a Chinese face:
+
+  | Role | Latin | Chinese | Fallbacks |
+  | --- | --- | --- | --- |
+  | `--display` titles, section heads | IBM Plex Serif | Noto Serif TC (Source Han Serif) | Songti TC, PMingLiU |
+  | `--body` reading text, interface | IBM Plex Sans | IBM Plex Sans TC | Noto Sans TC, PingFang TC, Microsoft JhengHei |
+  | `--mono` labels, metadata; `--code-font` | Lilex | IBM Plex Sans TC (no CJK mono is worth using) | Noto Sans TC, PingFang TC, Heiti TC |
+
+  Song-style serif carries Plex Serif's stroke contrast, so Chinese titles stay in the serif; heavier Song weights crowd, hence 400 (500 for section heads). Plex Sans TC is the Plex family's own Chinese, matching Plex Sans in stroke weight and body proportions in mixed text; Noto Sans TC covers more characters and is installed more widely, so it is the fallback. Mono and code keep Lilex first so Latin and digits align; Chinese in them falls through to Plex Sans TC.
+- Web fonts load through the head block in `src/parts/fonts.<lang>.html` (marked OPTIONAL in the templates), never as one whole file per CJK face (5 to 20 MB). Every face is sliced by `unicode-range`: Google Fonts slices Plex Serif and Sans, Lilex and Noto Serif TC; IBM Plex Sans TC uses IBM's own split files (`@ibm/plex-sans-tc`, one stylesheet per weight, pinned version) from jsDelivr. A page fetches only the slices holding its characters, with `font-display: swap`. English pages load no CJK faces. Weights loaded: Plex Serif 300, 400, 500 and italic 300, 400; Plex Sans 400, 500, 600 and italic 400; Lilex 400 to 600; Noto Serif TC 400 and 500; Plex Sans TC 400, 500, 600. To self-host (strict CSP, no third-party requests), copy the same sliced files and keep the `unicode-range` rules; to go without, delete the block.
+- PDFs (`document` templates, WeasyPrint) load no web fonts: install the faces where you render.
 - `--display` (serif) for titles and section heads; `--body` (sans) for reading text; `--mono` for labels, buttons, metadata, captions; `--code-font` for code. In Traditional Chinese `--mono` adds CJK faces after the Latin mono so Chinese labels render, while `--code-font` keeps a Latin mono first so code aligns.
 - Colour: every title (hero, band, post, docs, CTA, document cover) is `--ink`. The light serif in ink against small accent mono labels is the signature; an accent headline competes with the primary button.
 - Weights: Latin display 300 (titles) and 400 (h2, cards); CJK titles 400 and CJK section heads, cards and FAQ 500 (CJK at 300 is too thin, and 500 at title size reads heavy beside Latin 300); emphasis 600, never heavier. Interface emphasis (brand, current nav item) is 600.

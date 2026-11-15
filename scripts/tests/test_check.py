@@ -56,3 +56,14 @@ class StyleWarningTest(TestCase):
 
     def test_remote_fonts_warn(self) -> None:
         self.assertTrue(style_warnings("@import url('https://fonts.googleapis.com/css2?family=Inter');"))
+
+    def test_only_the_sliced_font_block_may_link_out(self) -> None:
+        head = '<!doctype html><html lang="en"><head><title>t</title>{}</head><body></body></html>'
+        fonts = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilex&amp;display=swap">'
+                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ibm/plex-sans-tc@1.1.1/fonts/split/woff2/hinted/IBMPlexSansTC-Regular.css">')
+        other = '<link rel="stylesheet" href="https://example.com/fonts.css">'
+        with TemporaryDirectory() as tmp:
+            ok = write(Path(tmp), "ok.html", head.format(fonts))
+            bad = write(Path(tmp), "bad.html", head.format(other))
+            self.assertEqual([], check_file(ok)[1])
+            self.assertTrue(check_file(bad)[1])

@@ -26,7 +26,7 @@ Infer, then state in one line before building: **surface**, **languages** (defau
 | restyle an existing web app (workspace, console, dashboard) | none | read `references/app-ui.md`; bring in `assets/css/gridline.css` |
 | a Hugo site | none | use the hugo-gridline theme; this skill's rules still apply |
 
-Templates: `assets/templates/<name>-en.html` and `<name>-zh-tw.html`, self-contained (CSS and JS inline). Filled examples for judging density and tone: `assets/examples/`.
+Templates: `assets/templates/<name>-en.html` and `<name>-zh-tw.html`, self-contained (CSS and JS inline). Their OPTIONAL font block in `<head>` loads the faces sliced by `unicode-range` (Chinese: Noto Serif TC titles, IBM Plex Sans TC text, Lilex for Latin in mono); keep it unless the page must work offline or make no third-party requests. Filled examples for judging density and tone: `assets/examples/`.
 
 ## 3 · Read the right amount
 

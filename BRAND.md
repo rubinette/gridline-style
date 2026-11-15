@@ -118,12 +118,13 @@ When you change the accent, the light derived colours follow (`color-mix()`); th
 
 | Role | Faces (in fallback order) | Use |
 | --- | --- | --- |
-| Display | IBM Plex Serif → platform serif; Chinese: Noto Serif TC, Songti | Titles, section heads |
-| Body | IBM Plex Sans → platform sans; Chinese: Noto Sans TC, PingFang, Microsoft JhengHei | Reading text, wordmark |
-| Mono | Lilex → IBM Plex Mono → platform mono, then CJK sans for Chinese | Labels, buttons, dates, metadata |
+| Display | IBM Plex Serif → platform serif; Chinese: **Noto Serif TC** → Songti | Titles, section heads |
+| Body | IBM Plex Sans → platform sans; Chinese: **IBM Plex Sans TC** → Noto Sans TC → PingFang, Microsoft JhengHei | Reading text, interface, wordmark |
+| Mono | Lilex → IBM Plex Mono → platform mono; Chinese falls back to IBM Plex Sans TC → Noto Sans TC | Labels, buttons, dates, metadata, code |
 
-- All OFL faces. **Name the stacks; never link or embed font files**; pages must degrade cleanly.
-- Titles are set in ink, never the accent. Latin display 300 (titles) and 400 (sections); CJK titles 400 and section heads 500; emphasis 600 and **nothing heavier**.
+- All OFL faces, free to embed. Chinese titles stay in a Song-style serif because it carries Plex Serif's stroke contrast; Chinese text uses Plex Sans TC, the Plex family's own Chinese, so mixed text keeps one stroke weight and body size. There is no Chinese mono worth using: Latin and digits stay in Lilex and Chinese falls back to Plex Sans TC.
+- On the web, load fonts **sliced by `unicode-range`** so a page downloads only the characters it uses; **never a whole Chinese font file**. Pages must still read correctly with no web fonts at all.
+- Titles are set in ink, never the accent. Latin display 300 (titles) and 400 (sections); CJK titles 400 and section heads 500 (heavier Song weights crowd); emphasis 600 and **nothing heavier**.
 - Italic only for English `<em>`, quotes and captions. Chinese is **never italic**; emphasis uses emphasis dots (`text-emphasis`).
 - The contrast of a light serif headline against small mono labels is the most recognisable type trait. Keep it in every piece.
 

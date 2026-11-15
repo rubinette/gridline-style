@@ -25,9 +25,9 @@ Mistakes that break the Gridline look, most of them seen in real fixes. Each lin
 
 14. **Bold display headings.** Latin display is 300/400; CJK titles 400, section heads 500; nothing above 600.
 15. **Synthetic CJK italic.** Chinese emphasis uses emphasis dots; captions and quotes stay upright.
-16. **Latin-only mono for Chinese labels.** Mono labels need CJK fallbacks (and in print every stack does).
+16. **Latin-only mono for Chinese labels.** Mono labels need CJK fallbacks: Lilex first, then IBM Plex Sans TC and Noto Sans TC (in print every stack needs them).
 17. **Spaced Chinese dates in mono** (`2026 年 11 月 10 日`). Write `2026年11月10日`.
-18. **Linked web fonts.** Name the stacks; do not link or embed fonts.
+18. **Whole CJK font files.** Load web fonts only through the sliced block (`src/parts/fonts.<lang>.html`, `unicode-range` slices); never link or embed a whole Chinese font, `@import` fonts in CSS, or let a page depend on fonts loading.
 
 ## Components and content
 

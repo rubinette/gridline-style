@@ -8,7 +8,7 @@ Errors (exit 1):
 Warnings (exit 1 only with --strict): departures from the Gridline style
   rounded corners other than 0 / 50% / var(--radius)
   blurred box-shadows (the system uses hard offsets only)
-  linked web fonts or remote stylesheets (font stacks degrade instead)
+  remote stylesheets other than the sliced web-font block (src/parts/fonts.*.html)
 """
 
 from __future__ import annotations
@@ -78,6 +78,14 @@ def split_shadows(value: str) -> list[str]:
     return parts
 
 
+# The web-font block (src/parts/fonts.*.html) loads faces sliced by
+# unicode-range; any other remote stylesheet is a departure.
+FONT_SOURCES = (
+    "https://fonts.googleapis.com/css2?",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-tc@",
+)
+
+
 def style_warnings(css: str) -> list[str]:
     warnings: list[str] = []
     for value in RADIUS.findall(css):
@@ -132,8 +140,8 @@ def check_file(path: Path, allow_placeholders: bool = False) -> tuple[list[str],
 
     warnings = style_warnings("\n".join(parser.styles))
     for href in parser.stylesheets:
-        if href.startswith(("http:", "https:", "//")):
-            warnings.append(f"remote stylesheet: {href} (Gridline names font stacks; it does not link fonts)")
+        if href.startswith(("http:", "https:", "//")) and not href.startswith(FONT_SOURCES):
+            warnings.append(f"remote stylesheet: {href} (only the sliced web-font block may link out)")
     return errors, warnings
 
 
