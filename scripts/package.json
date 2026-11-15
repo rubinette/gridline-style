@@ -2,7 +2,7 @@
   "name": "gridline-style-scripts",
   "private": true,
   "type": "module",
-  "description": "Optional browser check for finished pages (layout.mjs).",
+  "description": "Optional browser tools: page checks (layout.mjs) and brand PNG export (brand.mjs).",
   "dependencies": {
     "playwright-core": "1.48.2"
   }

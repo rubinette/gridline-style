@@ -39,6 +39,8 @@ uv run --no-project --with weasyprint --with pymupdf python scripts/render.py br
 ```
 SKILL.md            代理的入口：流程與路由
 CHEATSHEET.md       一頁速查：不變規則、token、類別、指令
+BRAND.zh-TW.md      品牌規範：名稱、標誌、色彩、字體、語氣、歸屬（英文版 BRAND.md）
+brand/              標誌、字標組合與社群預覽圖 SVG；png/ 由 scripts/brand.mjs 產生
 references/         design.md（完整規範）、components.md（元件標記）、tokens.json、
                     content.md（內容規則）、mermaid.md、app-ui.md、anti-patterns.md
 src/                原始碼（修改這裡）
@@ -51,7 +53,7 @@ src/                原始碼（修改這裡）
   content/          範例內容（_shared 為共用的品牌、導覽與頁尾）
 assets/             由 scripts/build.py 產生（請勿手動修改）
   templates/ examples/ css/gridline.css css/print.css js/
-scripts/            build.py、check.py、layout.mjs、render.py、tests/
+scripts/            build.py、check.py、layout.mjs、render.py、brand.mjs、tests/
 ```
 
 ## 開發流程
