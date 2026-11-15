@@ -132,7 +132,7 @@ Place cells and card grids between two horizontal lines (dividers, a section hea
 Inside `<div class="prose">`:
 
 - Headings: `<h2 id="slug">Text<a class="anchor" href="#slug" aria-label="Link to this section">#</a></h2>`; h3 sans 600; h4 mono overline.
-- Lists (accent square bullets), `ol.steps` (numbered steps with a rail), `blockquote` (pull quote), `hr` (hatched band), `kbd`, `mark`, inline `code`, footnotes (`.footnotes`).
+- Lists (neutral square bullets), `ol.steps` (numbered steps with a rail), `blockquote` (pull quote), `hr` (hatched band), `kbd`, `mark`, inline `code`, footnotes (`.footnotes`).
 - Tables: wrap in `<div class="table-wrap">` for horizontal scroll.
 - Callout: `<div class="callout callout-note" role="note"><p class="callout-title">Note</p><p>…</p></div>`; `callout-tip`, `callout-important` look like note; `callout-warning` and `callout-caution` use the status colours.
 
@@ -180,7 +180,7 @@ Image runs edge to edge inside a hairline frame with a 2px offset; the caption s
 
 ## Docs pieces [docs]
 
-`.docs-layout` > `nav.docs-nav` (`.docs-nav-toggle` button + `#docs-nav-list` of `<details class="docs-group" open><summary>Section</summary><ul>…</ul></details>`), `article.docs-main` (`.docs-head` with `ol.breadcrumbs.eyebrow`, `h1.docs-title`, `.lead`, edit button; prose; `.docs-footer` with `.post-nav` and `.docs-updated`), `aside.docs-toc`. Reference cards: `<div class="ref-grid"><a class="ref-card" href="#"><strong>Title</strong><span>Text</span></a></div>`.
+`.docs-layout` > `nav.docs-nav` (`.docs-nav-toggle` button + `#docs-nav-list` of `<details class="docs-group" open><summary>Section</summary><ul>…</ul></details>`), `article.docs-main` (`.docs-head` with `.docs-head-bar` (`ol.breadcrumbs.eyebrow` + edit button), then `h1.docs-title` and `.lead`; prose; `.docs-footer` with `.post-nav` and `.docs-updated`), `aside.docs-toc`. Reference cards: `<div class="ref-grid"><a class="ref-card" href="#"><strong>Title</strong><span>Text</span></a></div>`.
 
 ## Changelog pieces [changelog]
 

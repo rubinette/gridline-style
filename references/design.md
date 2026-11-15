@@ -9,7 +9,7 @@ A quiet, engineered page: a warm gray-white canvas, hairline construction lines 
 Three habits keep it honest:
 
 1. **Every line encodes structure.** A rail, a band edge, a column divider. No ornamental rules, ticks or side accents.
-2. **One accent.** Blue marks the primary action, the current location, links and one key idea per view. Status colours label state and nothing else.
+2. **One accent.** Blue marks the primary action, the current location, links and one small cue per view (the eyebrow). Titles, prices, bullets, avatars and disclosure markers are ink or neutral, so the blue that remains always means something. Status colours label state and nothing else.
 3. **Square and flat.** Corners are 0 (`--radius`). Only avatars and status dots are round. Depth is a hard offset in the accent band colour, never a blur.
 
 ## 2. Colour
@@ -25,7 +25,8 @@ Three habits keep it honest:
 
 - Stacks name the OFL faces IBM Plex Serif, IBM Plex Sans and Lilex first, then platform fonts. Do not link or embed font files; the stacks must degrade cleanly.
 - `--display` (serif) for titles and section heads; `--body` (sans) for reading text; `--mono` for labels, buttons, metadata, captions; `--code-font` for code. In Traditional Chinese `--mono` adds CJK faces after the Latin mono so Chinese labels render, while `--code-font` keeps a Latin mono first so code aligns.
-- Weights: Latin display 300 (h1) and 400 (h2, cards); CJK display 500 (CJK at 300 is too thin); emphasis 600, never heavier. Interface emphasis (brand, current nav item) is 600.
+- Colour: every title (hero, band, post, docs, CTA, document cover) is `--ink`. The light serif in ink against small accent mono labels is the signature; an accent headline competes with the primary button.
+- Weights: Latin display 300 (titles) and 400 (h2, cards); CJK titles 400 and CJK section heads, cards and FAQ 500 (CJK at 300 is too thin, and 500 at title size reads heavy beside Latin 300); emphasis 600, never heavier. Interface emphasis (brand, current nav item) is 600.
 - Italic only for an English `<em>`, an English pull quote and English figure captions. CJK never gets synthetic italic: `<em>` in Chinese prose uses emphasis dots (`text-emphasis`), captions and quotes stay upright.
 - Every page sets `text-wrap: balance` on headings, `pretty` on paragraphs, tabular numerals on dates, counts, prices and tables, and for Chinese `line-break: strict`, `text-autospace` and `text-spacing-trim: trim-start` on headings. Chinese dates are written without spaces: `2026年11月10日`.
 - Measure: prose stays near 70ch (38em in Chinese).
@@ -71,6 +72,8 @@ Markup: an empty `<i class="junction">` inside a box whose two edges are rails; 
 - `--shadow-offset` (6px both ways, accent band colour) on code blocks, the product window, the featured plan and the mobile menu. `2px 2px 0 var(--band)` on figures and the diagram viewer panel. Nothing blurs.
 - Hatches (135°, 3–4px period) are the texture: divider bands, card media frames, feature media, the featured plan, `.row` hover (fading toward the title), `.band.hatch`.
 - Print drops shadows (WeasyPrint ignores them) and relies on borders.
+- Section heads: title, then a 14px gap and a lead in `--ink-2` at line-height 1.6 (max 520px). Changelog release subheads (h3) are 20px serif without a rule; the card already frames them.
+- Lists use neutral square bullets (`--muted`); pull quotes a 1px `--line-strong` rule; callouts a hairline box (`--accent-line` for notes, `--line-strong` for warnings) on their soft wash, never a thick side bar.
 
 ## 6. Interaction
 
@@ -90,13 +93,13 @@ Hero on the 20px grid → divider → three featured `.card-grid` cards → divi
 `.band.hatch` header (category eyebrow, title, byline with avatars and roles, date / reading time) → `.post-layout`: `.prose` article beside a 280px aside (sticky on-this-page TOC with the current section highlighted, optional links box) → tags, older / newer post → CTA → footer. Below 1080px the aside hides and an inline `<details>` TOC opens the article. Figures, code blocks, callouts, tables and Mermaid diagrams are prose components (`components.md`).
 
 ### Docs (`docs`)
-Header with the main nav (Docs current) and a search field → `.docs-layout`: navigation rail of `<details class="docs-group">` sections (current page accent), article (breadcrumbs, accent title, lead, edit button, prose with steps, states, reference cards, previous / next, last updated), on-this-page rail. Below 1180px the TOC rail folds into the article; below 880px the navigation collapses behind a disclosure button (open by default without JavaScript).
+Header with the main nav (Docs current) and a search field → `.docs-layout`: navigation rail of `<details class="docs-group">` sections (current page accent), article (breadcrumbs and edit button on one row, title, full-width lead, prose with steps, states, reference cards, previous / next, last updated), on-this-page rail. Below 1180px the TOC rail folds into the article; below 880px the navigation collapses behind a disclosure button (open by default without JavaScript).
 
 ### Changelog (`changelog`)
 `.band` header with a centred title → `.release-layout`: rail of channels and version anchors; feed of `.month` labels and `.release` cards (version, latest badge, date, prose notes grouped by h3: features, fixes, breaking changes); pin board with links and the release policy. Below 1180px the pin board moves under the feed; below 880px the rail becomes chips.
 
 ### Landing (`landing`)
-Optional announcement strip → product hero on the grid (eyebrow category, accent title, lead, primary button with a key hint, secondary button, platform note) → plain divider → value strip (three `.cells`) → product panel (an abstract `.window` with the offset shadow; replace with a real screenshot inside the window frame, never imitate a real product's UI) → feature rows (`.section-head` with actions, a two-column row with media, a three-column text row) → optional stats band (real, sourced numbers only) → workflow showcase (exclusive `<details name>` accordion beside a figure) → optional plans (one `.featured`) → FAQ → optional latest posts (`.card-grid`) → CTA → footer. Testimonials are allowed only with real, attributable quotes (`.quote-grid`); there is no template slot for invented ones.
+Optional announcement strip → product hero on the grid (eyebrow category, title, lead, primary button with a key hint, secondary button, platform note) → plain divider → value strip (three `.cells`) → product panel (an abstract `.window` with the offset shadow; replace with a real screenshot inside the window frame, never imitate a real product's UI) → feature rows (`.section-head` with actions, a two-column row with media, a three-column text row) → optional stats band (real, sourced numbers only) → workflow showcase (exclusive `<details name>` accordion beside a figure) → optional plans (one `.featured`) → FAQ → optional latest posts (`.card-grid`) → CTA → footer. Testimonials are allowed only with real, attributable quotes (`.quote-grid`); there is no template slot for invented ones.
 
 ### Document (`document`)
 A4 pages for WeasyPrint: a cover with one construction `.frame` on the 8mm grid (fixed 240mm high; WeasyPrint places bottom corners from content height otherwise) and a diamond on each corner; content pages with a running label and folio, section heads, cards, callout, table, steps, dark code, pull quote and fine print. Body ≥ 9.5pt, code ≥ 8pt, tables and code never split. Below 820px on screen the pages read as one column.

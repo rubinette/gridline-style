@@ -154,12 +154,13 @@
 .plan-name { margin: 0; color: var(--muted); font: 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .plan.featured .plan-name { color: var(--accent); }
 .price { margin: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.price strong { color: var(--accent); font: 400 36px/1 var(--display); }
+.price strong { color: var(--ink); font: 300 40px/1 var(--display); letter-spacing: -.02em; }
 .price span { color: var(--muted); font: 13px/1.4 var(--mono); }
 .plan-desc { margin: 0; color: var(--ink-2); font-size: 14.5px; }
 .checks { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; }
 .checks li { display: flex; gap: 10px; }
-.checks li::before { content: "✓"; color: var(--accent); font-family: var(--mono); }
+.checks li::before { content: "✓"; color: var(--muted); font-family: var(--mono); }
+.plan.featured .checks li::before { color: var(--accent); }
 .plan .button { margin-top: auto; width: 100%; }
 .plan-note { margin: 0; color: var(--muted); font: 11.5px/1.5 var(--mono); text-align: center; }
 
@@ -180,7 +181,8 @@
 }
 :lang(zh) .faq summary { font-weight: 500; font-size: 18px; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; flex-shrink: 0; color: var(--accent); font: 18px var(--mono); }
+.faq summary::after { content: "+"; flex-shrink: 0; color: var(--muted); font: 18px var(--mono); transition: color .15s; }
+.faq summary:hover::after, .faq details[open] summary::after { color: var(--accent); }
 .faq details[open] summary::after { content: "−"; }
 .faq details > div { padding: 0 0 20px; color: var(--ink-2); max-width: 64ch; }
 .faq details > div p { margin: 0 0 .8em; }
