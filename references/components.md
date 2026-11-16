@@ -101,7 +101,7 @@ Closing CTA: `<section class="cta grid-bg"><div class="frame cta-inner"><p class
 | `<button class="icon-btn">` | square 40px icon button |
 | `<p class="eyebrow">` | accent mono overline |
 | `<p class="nav-label">` | muted mono label above a list |
-| `<span class="badge">` / `.badge.accent` | category, "Latest" |
+| `<span class="badge">` / `.badge.accent` | category; "Latest" only where the order does not already show it (a version rail) |
 | `<span class="state">` `.active` `.ok` `.warn` `.err` | state labels, the only status colour |
 | `<span class="avatars sm|md"><span class="avatar">L</span></span>` | people (round) |
 | `<kbd class="key">⌘</kbd>` | a key outside prose |
@@ -119,7 +119,7 @@ Closing CTA: `<section class="cta grid-bg"><div class="frame cta-inner"><p class
     <div class="card-body">
       <h2 class="card-title">Title</h2>
       <p class="card-excerpt">Two-line excerpt.</p>
-      <div class="card-meta"><span class="card-authors">Name</span><time datetime="2026-11-10">Nov 10, 2026</time><span class="badge accent">Latest</span></div>
+      <div class="card-meta"><span class="card-authors">Name</span><time datetime="2026-11-10">Nov 10, 2026</time></div>
     </div>
   </a></article> …
 </section>

@@ -1,8 +1,7 @@
 {
   "PAGE_TITLE": "更新紀錄",
   "DESCRIPTION": "（虛構的）Orbitline 編輯器的版本更新紀錄。",
-  "EYEBROW": "版本發布",
-  "LEAD": "每一個釋出的改動，由新到舊排列。穩定版每兩週發布一次。",
+  "LEAD": "穩定版每兩週發布一次。",
   "CHANNEL_1": "穩定版",
   "CHANNEL_1_URL": "changelog-zh-tw.html",
   "CHANNEL_2": "預覽版",

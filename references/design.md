@@ -101,13 +101,13 @@ All screen surfaces share the header, footer, frame and tokens. Templates: `asse
 Hero on the 20px grid → divider → three featured `.card-grid` cards → divider → `.index-body`: category and author rail (`.cat-nav`, current item accent) beside the post list grouped by year (`.year` labels, `.row` links with avatars, category badge, date) → pagination → footer. Below 880px the rail becomes a wrapped chip list above the list.
 
 ### Post (`post`)
-`.band.hatch` header (category eyebrow, title, byline with avatars and roles, date / reading time) → `.post-layout`: `.prose` article beside a 280px aside (sticky on-this-page TOC with the current section highlighted, optional links box) → tags, older / newer post → CTA → footer. Below 1080px the aside hides and an inline `<details>` TOC opens the article. Figures, code blocks, callouts, tables and Mermaid diagrams are prose components (`components.md`).
+`.band.hatch` header (category eyebrow, title, byline with avatars and names, date / reading time) → `.post-layout`: `.prose` article beside a 280px aside (sticky on-this-page TOC with the current section highlighted, optional links box) → tags, older / newer post → CTA → footer. Below 1080px the aside hides and an inline `<details>` TOC opens the article. Figures, code blocks, callouts, tables and Mermaid diagrams are prose components (`components.md`).
 
 ### Docs (`docs`)
 Header with the main nav (Docs current) and a search field → `.docs-layout`: navigation rail of `<details class="docs-group">` sections (current page accent), article (breadcrumbs and edit button on one row, title, full-width lead, prose with steps, states, reference cards, previous / next, last updated), on-this-page rail. Below 1180px the TOC rail folds into the article; below 880px the navigation collapses behind a disclosure button (open by default without JavaScript).
 
 ### Changelog (`changelog`)
-`.band` header with a centred title → `.release-layout`: rail of channels and version anchors; feed of `.month` labels and `.release` cards (version, latest badge, date, prose notes grouped by h3: features, fixes, breaking changes); pin board with links and the release policy. Below 1180px the pin board moves under the feed; below 880px the rail becomes chips.
+`.band` header with a centred title and one-line lead → `.release-layout`: rail of channels and version anchors; feed of `.month` labels and `.release` cards (version, latest badge, date, prose notes grouped by h3: features, fixes, breaking changes); pin board with links and the release policy. Below 1180px the pin board moves under the feed; below 880px the rail becomes chips.
 
 ### Landing (`landing`)
 Optional announcement strip → product hero on the grid (eyebrow category, title, lead, primary button with a key hint, secondary button, platform note) → plain divider → value strip (three `.cells`) → product panel (an abstract `.window` with the offset shadow; replace with a real screenshot inside the window frame, never imitate a real product's UI) → feature rows (`.section-head` with actions, a two-column row with media, a three-column text row) → optional stats band (real, sourced numbers only) → workflow showcase (exclusive `<details name>` accordion beside a figure) → optional plans (one `.featured`) → FAQ → optional latest posts (`.card-grid`) → CTA → footer. Testimonials are allowed only with real, attributable quotes (`.quote-grid`); there is no template slot for invented ones.
@@ -131,6 +131,13 @@ Gridline pages should be self-evident: a reader glances, recognises what everyth
 - **Few choices at a time** (Hick's law, Miller's law). Keep the main navigation to about five items and one primary button per group; longer sets go in the footer or a rail, grouped under labels.
 - **One standout per view** (Von Restorff effect). The accent marks one primary action and the current location; a second accent-coloured element competes with it.
 - **Omit needless words** (Krug). An eyebrow adds information the title does not (a category, a step), never repeats it ("Blog" above "From the blog"). Leads are one or two sentences.
+- **Let the layout do the explaining** (Krug, Prägnanz, law of common region). Position, grouping and the current-item mark already say what a block is, so a block does not also announce itself in words. Before adding a secondary label, description, subtitle or eyebrow, ask what it tells the reader that the layout, the heading or the controls do not; if nothing, leave it out:
+  - no eyebrow that repeats the title, the section the header already marks, or the filter a rail already highlights (no "Categories" above a category page, no "404" above "Page not found");
+  - no lead under a section heading that paraphrases it ("Related posts" needs no "More posts on the same topic"), and no CTA eyebrow or body that restates the title and buttons;
+  - no visible label above a table of contents in a rail: its position and the highlighted section say what it is (the `aria-label` stays, and an inline `<details>` keeps its summary because it is a control);
+  - no status badge the order already shows ("Newest" on the first card of a newest-first row with dates), and no column badge that is the same on every row (the category on that category's own page);
+  - bylines name people; roles and bios belong on the author's page; the footer does not repeat the hero's tagline.
+  Keep what the layout cannot say: dates, counts, categories, version numbers, group labels where one rail holds two kinds of list, "Older / Newer post", error causes, and every `aria-label` and screen-reader-only text.
 - **Keyboard and structure** (WCAG 1.3.1, 2.1.1, 4.1.3). Headings do not skip levels (the value strip under the hero is `h2`); scroll boxes that overflow (`.table-wrap`, diagrams) get a tab stop from `site.js`; the copy button announces "Copied" through `aria-live`.
 
 ## 9. Responsive and accessibility review

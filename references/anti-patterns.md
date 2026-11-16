@@ -48,4 +48,4 @@ Mistakes that break the Gridline look, most of them seen in real fixes. Each lin
 30. **Eyebrow repeating the title.** Drop it, or use it for information the title lacks.
 31. **Tiny utility links** (footer legal links, author names at line height). At least 24px tall.
 32. **Skipped heading levels** (an `h3` right under the `h1`) and scroll boxes the keyboard cannot reach.
-
+33. **Labels that narrate the layout** ("On this page" over a TOC rail, "Categories" above a category page, a lead that paraphrases its heading, "Newest" on a newest-first row, a CTA eyebrow, a footer tagline that repeats the hero). Let position and grouping say it; keep the `aria-label`.

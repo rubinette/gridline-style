@@ -1,8 +1,7 @@
 {
   "PAGE_TITLE": "Changelog",
   "DESCRIPTION": "Release notes for the (fictional) Orbitline editor.",
-  "EYEBROW": "Releases",
-  "LEAD": "Every change that ships, newest first. Stable releases arrive every two weeks.",
+  "LEAD": "Stable releases arrive every two weeks.",
   "CHANNEL_1": "Stable",
   "CHANNEL_1_URL": "changelog-en.html",
   "CHANNEL_2": "Preview",

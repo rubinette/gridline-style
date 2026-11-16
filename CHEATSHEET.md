@@ -14,7 +14,7 @@ One page to scan before filling a template or nudging a detail. Full spec: `refe
 8. Grids are anchored to rails and frame heroes and bands, never reading text.
 9. 40px minimum controls (24px for links outside running text), 2px accent focus outline, works without JavaScript.
 10. Never invent facts; `[DATA NEEDED: …]` instead. Fictional examples say they are fictional.
-11. Don't make readers think (`design.md` §8): header nav on every page with the current section marked, one kind of label per column, "Older / Newer post", no eyebrow that repeats the title.
+11. Don't make readers think (`design.md` §8): header nav on every page with the current section marked, one kind of label per column, "Older / Newer post", no eyebrow that repeats the title, and let the layout explain: no label, lead or badge that says what position, grouping or order already says (§8).
 
 ## Core tokens
 

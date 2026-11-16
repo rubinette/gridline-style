@@ -1759,11 +1759,11 @@ pre.mermaid {
         <ul class="byline" aria-label="By">
           <li class="author">
             <span class="avatars md" aria-hidden="true"><span class="avatar">{{AUTHOR_1_INITIAL}}</span></span>
-            <span class="author-text"><a href="{{AUTHOR_1_URL}}">{{AUTHOR_1_NAME}}</a><span class="author-role">{{AUTHOR_1_ROLE}}</span></span>
+            <span class="author-text"><a href="{{AUTHOR_1_URL}}">{{AUTHOR_1_NAME}}</a></span>
           </li>
           <li class="author">
             <span class="avatars md" aria-hidden="true"><span class="avatar">{{AUTHOR_2_INITIAL}}</span></span>
-            <span class="author-text"><a href="{{AUTHOR_2_URL}}">{{AUTHOR_2_NAME}}</a><span class="author-role">{{AUTHOR_2_ROLE}}</span></span>
+            <span class="author-text"><a href="{{AUTHOR_2_URL}}">{{AUTHOR_2_NAME}}</a></span>
           </li>
         </ul>
         <p class="post-meta"><time datetime="{{DATETIME}}">{{DATE}}</time><span>{{READING_TIME}}</span></p>
@@ -1802,7 +1802,6 @@ pre.mermaid {
       <aside class="post-aside">
         <div class="aside-sticky">
           <nav class="toc toc-aside" aria-label="On this page">
-            <p class="nav-label">On this page</p>
             {{TOC_HTML}}
           </nav>
           <!-- OPTIONAL related links. -->
@@ -1820,9 +1819,7 @@ pre.mermaid {
 <div class="divider" aria-hidden="true"><div class="frame"><i class="junction"></i><i class="junction"></i></div></div>
 <section class="cta grid-bg" aria-labelledby="cta-title">
   <div class="frame cta-inner">
-    <p class="eyebrow">{{CTA_EYEBROW}}</p>
     <h2 id="cta-title">{{CTA_TITLE}}</h2>
-    <p>{{CTA_BODY}}</p>
     <div class="actions">
       <a class="button primary" href="{{CTA_PRIMARY_URL}}">{{CTA_PRIMARY_LABEL}}</a>
       <a class="button" href="{{CTA_SECONDARY_URL}}">{{CTA_SECONDARY_LABEL}} <span class="arrow" aria-hidden="true">→</span></a>
@@ -1838,7 +1835,6 @@ pre.mermaid {
         <span class="brand-mark" aria-hidden="true">{{MONOGRAM}}</span>
         <span class="brand-name">{{PRODUCT_NAME}}</span>
       </a>
-      <p>{{FOOTER_TAGLINE}}</p>
     </div>
     <div class="footer-cols">
       <div class="footer-col">
