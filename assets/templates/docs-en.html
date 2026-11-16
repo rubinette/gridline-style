@@ -343,6 +343,8 @@ time, table, .count, .page-of, .post-meta, .stat-value, .price, .version { font-
    diamonds centre on them. */
 .header-rails { display: none; border-inline: 1px solid transparent; }
 body:has(.band) .header-rails { display: block; }
+/* Past the band its outer rails are gone, so their diamonds go too (site.js). */
+.site-header.past-band .header-rails { display: none; }
 
 .band-inner { padding: 72px var(--pad) 56px; }
 .band-inner.center { text-align: center; }
@@ -1850,6 +1852,25 @@ pre.mermaid {
     });
     sync();
     addEventListener("resize", sync, { passive: true });
+  }
+
+  // The header draws the diamonds for a band's outer rails (.header-rails).
+  // Those rails end with the band, so once it has scrolled up under the header
+  // the diamonds would float on empty canvas: hide them until it comes back.
+  const header = doc.querySelector(".site-header");
+  const band = doc.querySelector(".band");
+  if (header && band && header.querySelector(".header-rails") && "IntersectionObserver" in window) {
+    let io = null;
+    const watch = () => {
+      if (io) io.disconnect();
+      const h = Math.round(header.getBoundingClientRect().height);
+      io = new IntersectionObserver(([entry]) => {
+        header.classList.toggle("past-band", !entry.isIntersecting);
+      }, { rootMargin: `-${h}px 0px 0px 0px` });
+      io.observe(band);
+    };
+    watch();
+    addEventListener("resize", watch, { passive: true });
   }
 
   // Highlight the current section in an on-this-page rail.

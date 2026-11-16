@@ -135,6 +135,8 @@
    diamonds centre on them. */
 .header-rails { display: none; border-inline: 1px solid transparent; }
 body:has(.band) .header-rails { display: block; }
+/* Past the band its outer rails are gone, so their diamonds go too (site.js). */
+.site-header.past-band .header-rails { display: none; }
 
 .band-inner { padding: 72px var(--pad) 56px; }
 .band-inner.center { text-align: center; }

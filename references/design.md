@@ -68,7 +68,7 @@ Small hollow diamonds (`--node` 7px, `--node-fill`, 1px `--line-strong`) mark wh
 
 - **One diamond per crossing.** Two diamonds at the same point (or 1px apart) look like a smudge. When two systems would draw at one crossing (folded outer rails), only one draws.
 - **Centred on the 1px line.** A 1px border at the start of a box occupies its first pixel, so its centre is −0.5px from the padding edge: diamonds use `left: -.5px`, `left: calc(100% + .5px)`, `top: -.5px`, `top: calc(100% + .5px)` with `translate(-50%, -50%)`. The element that carries outer-rail diamonds gets the same transparent border box as the elements that draw the rails (`.header-rails`).
-- **Drawn by the top layer.** The sticky header draws the diamonds on its bottom border (`.site-header .junction`, plus `.header-rails` on pages with a band); a band sits on its own layer (`z-index: 1`) so the content after it never covers the lower half of its bottom diamonds. Anything that opens over the header (mobile menu) sits above the diamonds.
+- **Drawn by the top layer.** The sticky header draws the diamonds on its bottom border (`.site-header .junction`, plus `.header-rails` on pages with a band, hidden by `site.js` (`.past-band`) once the band has scrolled up under the header, since its outer rails end with it); a band sits on its own layer (`z-index: 1`) so the content after it never covers the lower half of its bottom diamonds. Anything that opens over the header (mobile menu) sits above the diamonds.
 - Decorative only: `aria-hidden="true"`, `pointer-events: none`.
 
 Markup: an empty `<i class="junction">` inside a box whose two edges are rails; its `::before` and `::after` are the diamonds. A second `<i class="junction">` marks the bottom edge.

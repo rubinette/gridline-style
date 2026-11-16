@@ -81,6 +81,25 @@
     addEventListener("resize", sync, { passive: true });
   }
 
+  // The header draws the diamonds for a band's outer rails (.header-rails).
+  // Those rails end with the band, so once it has scrolled up under the header
+  // the diamonds would float on empty canvas: hide them until it comes back.
+  const header = doc.querySelector(".site-header");
+  const band = doc.querySelector(".band");
+  if (header && band && header.querySelector(".header-rails") && "IntersectionObserver" in window) {
+    let io = null;
+    const watch = () => {
+      if (io) io.disconnect();
+      const h = Math.round(header.getBoundingClientRect().height);
+      io = new IntersectionObserver(([entry]) => {
+        header.classList.toggle("past-band", !entry.isIntersecting);
+      }, { rootMargin: `-${h}px 0px 0px 0px` });
+      io.observe(band);
+    };
+    watch();
+    addEventListener("resize", watch, { passive: true });
+  }
+
   // Highlight the current section in an on-this-page rail.
   const tocLinks = [...doc.querySelectorAll(".toc-aside a[href^='#']")];
   if (tocLinks.length && "IntersectionObserver" in window) {
